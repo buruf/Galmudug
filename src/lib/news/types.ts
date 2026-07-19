@@ -1,6 +1,15 @@
 export type ArticleCategory = "galmudug" | "somalia";
 export type ArticleLanguage = "en" | "so";
 
+/** Editorial topic, assigned by keyword classifier (topics.ts). */
+export type ArticleTopic =
+  | "politics"
+  | "security"
+  | "business"
+  | "sports"
+  | "culture"
+  | "general";
+
 /** Normalized article schema shared by the pipeline, store, and UI. */
 export interface Article {
   /** Stable id derived from the canonical article URL. */
@@ -18,6 +27,10 @@ export interface Article {
   fetchedAt: string;
   category: ArticleCategory;
   language: ArticleLanguage;
+  /** Editorial topic; articles stored before topics existed may lack it. */
+  topic?: ArticleTopic;
+  /** Thumbnail URL from the source's feed, when one was provided. */
+  image?: string;
   /** Admin moderation flags — preserved across pipeline re-runs. */
   hidden: boolean;
   pinned: boolean;
@@ -29,6 +42,8 @@ export interface RawItem {
   link: string;
   description?: string;
   publishedAt?: string;
+  /** Image URL from enclosure/media:content/media:thumbnail or inline <img>. */
+  image?: string;
 }
 
 export interface NewsSource {

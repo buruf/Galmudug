@@ -111,6 +111,17 @@ export async function runNewsPipeline(
 
   const existing = await store.getAll();
   const fresh = dedupeArticles(incoming, existing);
+
+  // Backfill image/topic onto already-stored articles when the same story is
+  // still in a feed (older entries predate these fields). Flags stay untouched.
+  const incomingById = new Map(incoming.map((a) => [a.id, a]));
+  for (const article of existing) {
+    const update = incomingById.get(article.id);
+    if (!update) continue;
+    if (!article.image && update.image) article.image = update.image;
+    if (!article.topic && update.topic) article.topic = update.topic;
+  }
+
   await store.replaceAll([...existing, ...fresh]);
   const total = (await store.getAll()).length;
 

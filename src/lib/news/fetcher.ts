@@ -69,6 +69,36 @@ function atomLink(node: unknown): string {
   return "";
 }
 
+/** Attribute url of the first usable node in enclosure/media:* fields. */
+function mediaUrl(node: unknown): string {
+  for (const m of asArray(node as Record<string, unknown> | Record<string, unknown>[])) {
+    if (typeof m !== "object" || m === null) continue;
+    const o = m as Record<string, unknown>;
+    const type = typeof o["@_type"] === "string" ? (o["@_type"] as string) : "";
+    if (type && !type.startsWith("image/") && o["@_medium"] !== "image") continue;
+    const url = o["@_url"];
+    if (typeof url === "string" && /^https?:\/\//.test(url)) return url;
+  }
+  return "";
+}
+
+/** First <img src> inside an HTML fragment (description/content:encoded). */
+function inlineImage(html: string): string {
+  const match = /<img[^>]+src=["']([^"']+)["']/i.exec(html);
+  const src = match?.[1] ?? "";
+  return /^https?:\/\//.test(src) ? src : "";
+}
+
+/** Best-effort image for one feed item; empty string when none found. */
+function itemImage(item: Record<string, unknown>, html: string): string | undefined {
+  const url =
+    mediaUrl(item.enclosure) ||
+    mediaUrl(item["media:content"]) ||
+    mediaUrl(item["media:thumbnail"]) ||
+    inlineImage(html);
+  return url || undefined;
+}
+
 /**
  * Parse RSS 2.0, RSS 1.0 (RDF), or Atom into raw items.
  * Throws on documents that are not recognizable feeds.
@@ -79,24 +109,32 @@ export function parseFeed(xml: string): RawItem[] {
   // RSS 2.0: rss.channel.item[]
   const rssItems = asArray(doc?.rss?.channel?.item);
   if (rssItems.length > 0) {
-    return rssItems.map((item: Record<string, unknown>) => ({
-      title: textOf(item.title),
-      link: textOf(item.link) || textOf(item.guid),
-      description: textOf(item.description) || textOf(item["content:encoded"]),
-      publishedAt: textOf(item.pubDate) || textOf(item["dc:date"]) || undefined,
-    }));
+    return rssItems.map((item: Record<string, unknown>) => {
+      const rawHtml = `${textOf(item.description)} ${textOf(item["content:encoded"])}`;
+      return {
+        title: textOf(item.title),
+        link: textOf(item.link) || textOf(item.guid),
+        description: textOf(item.description) || textOf(item["content:encoded"]),
+        publishedAt: textOf(item.pubDate) || textOf(item["dc:date"]) || undefined,
+        image: itemImage(item, rawHtml),
+      };
+    });
   }
 
   // Atom: feed.entry[]
   const atomEntries = asArray(doc?.feed?.entry);
   if (atomEntries.length > 0) {
-    return atomEntries.map((entry: Record<string, unknown>) => ({
-      title: textOf(entry.title),
-      link: atomLink(entry.link),
-      description: textOf(entry.summary) || textOf(entry.content),
-      publishedAt:
-        textOf(entry.published) || textOf(entry.updated) || undefined,
-    }));
+    return atomEntries.map((entry: Record<string, unknown>) => {
+      const rawHtml = `${textOf(entry.summary)} ${textOf(entry.content)}`;
+      return {
+        title: textOf(entry.title),
+        link: atomLink(entry.link),
+        description: textOf(entry.summary) || textOf(entry.content),
+        publishedAt:
+          textOf(entry.published) || textOf(entry.updated) || undefined,
+        image: itemImage(entry, rawHtml),
+      };
+    });
   }
 
   // RSS 1.0 / RDF: rdf:RDF.item[]

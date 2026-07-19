@@ -66,7 +66,20 @@ const so: Dictionary = {
       },
     },
   },
+  topics: {
+    politics: "Siyaasadda",
+    security: "Amniga",
+    business: "Ganacsiga",
+    sports: "Ciyaaraha",
+    culture: "Dhaqanka",
+    general: "Warar kale",
+  },
   news: {
+    topStories: "Wararka ugu waaweyn",
+    latestHeading: "Ugu dambeeyay",
+    topicsLabel: "Qaybaha wararka",
+    topicIntro:
+      "Wararkii ugu dambeeyay ee qaybtan, oo laga soo ururiyay warbaahinta Soomaalida. War kastaa wuxuu ku xiran yahay — welina waxaa iska leh — daabacaha asalka ah.",
     galmudugTitle: "Wararka Galmudug",
     galmudugIntro:
       "Cinwaannada wararka Galmudug — Dhuusamarreeb, Gaalkacyo, Hobyo, Cadaado iyo gobolka oo dhan — oo si otomaatig ah looga soo ururiyay warbaahinta Soomaalida. War kastaa wuxuu ku xiran yahay isha uu ka soo baxay, xuquuqduna waxay u taagan tahay daabacaha asalka ah.",

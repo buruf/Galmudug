@@ -10,6 +10,7 @@
  */
 import { getArticleStore } from "../src/lib/news/store";
 import { classifyCategory, detectLanguage } from "../src/lib/news/classify";
+import { classifyTopic } from "../src/lib/news/topics";
 import { getSource } from "../src/lib/news/sources";
 
 async function main() {
@@ -19,19 +20,19 @@ async function main() {
   let changed = 0;
   for (const a of articles) {
     const source = getSource(a.sourceId);
-    const language = detectLanguage(
-      `${a.title} ${a.summary}`,
-      source?.language ?? a.language
-    );
+    const text = `${a.title} ${a.summary}`;
+    const language = detectLanguage(text, source?.language ?? a.language);
     const category =
       source?.forceCategory ?? classifyCategory(a.title, a.summary);
+    const topic = classifyTopic(text);
 
-    if (language !== a.language || category !== a.category) {
+    if (language !== a.language || category !== a.category || topic !== a.topic) {
       console.log(
-        `retag [${a.sourceName}] lang ${a.language}->${language}, cat ${a.category}->${category}: ${a.title.slice(0, 70)}`
+        `retag [${a.sourceName}] lang ${a.language}->${language}, cat ${a.category}->${category}, topic ${a.topic ?? "-"}->${topic}: ${a.title.slice(0, 70)}`
       );
       a.language = language;
       a.category = category;
+      a.topic = topic;
       changed++;
     }
   }

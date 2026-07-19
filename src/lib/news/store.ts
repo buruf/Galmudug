@@ -1,6 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import type { Article, ArticleCategory } from "./types";
+import type { Article, ArticleCategory, ArticleTopic } from "./types";
 
 const MAX_STORED_ARTICLES = 1200;
 
@@ -171,6 +171,34 @@ export function getArticleStore(): ArticleStore {
     }
   }
   return defaultStore;
+}
+
+function sortForFeed(articles: Article[]): Article[] {
+  return articles.sort((a, b) => {
+    if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+    return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+  });
+}
+
+/** All visible articles, both categories, pinned first then newest. */
+export async function getAllVisible(
+  store: ArticleStore,
+  limit = 120
+): Promise<Article[]> {
+  const all = await store.getAll();
+  return sortForFeed(all.filter((a) => !a.hidden)).slice(0, limit);
+}
+
+/** Visible articles for one topic (stored pre-topic articles count as general). */
+export async function getVisibleByTopic(
+  store: ArticleStore,
+  topic: ArticleTopic,
+  limit = 60
+): Promise<Article[]> {
+  const all = await store.getAll();
+  return sortForFeed(
+    all.filter((a) => !a.hidden && (a.topic ?? "general") === topic)
+  ).slice(0, limit);
 }
 
 /** Public feed query: visible articles for one category, pinned first. */

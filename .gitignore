@@ -22,3 +22,5 @@ next-env.d.ts
 
 # local machine settings
 .claude/
+
+.vercel

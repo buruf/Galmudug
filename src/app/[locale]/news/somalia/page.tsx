@@ -34,7 +34,7 @@ export default async function SomaliaNewsPage({
   return (
     <NewsFeed
       articles={articles}
-      category="somalia"
+      active={{ category: "somalia" }}
       locale={params.locale}
       dict={dict}
     />

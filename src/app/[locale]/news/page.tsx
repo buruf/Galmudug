@@ -34,7 +34,7 @@ export default async function GalmudugNewsPage({
   return (
     <NewsFeed
       articles={articles}
-      category="galmudug"
+      active={{ category: "galmudug" }}
       locale={params.locale}
       dict={dict}
     />

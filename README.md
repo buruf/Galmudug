@@ -57,11 +57,13 @@ data/articles.json         runtime article store (gitignored)
 ### News pipeline (`src/lib/news/`)
 
 ```
-sources.ts → fetcher.ts (RSS/Atom) ──fail──> scraper.ts (headline fallback)
+sources.ts → fetcher.ts (RSS/Atom + item images) ──fail──> scraper.ts (headline fallback)
                      │
               normalize.ts  (strip HTML, truncate summary, canonical URL, id)
                      │
               classify.ts   (galmudug/somalia by place keywords; en/so detection)
+                     │
+              topics.ts     (politics/security/business/sports/culture by bilingual keywords)
                      │
               dedupe.ts     (exact URL + title-similarity within 72h window)
                      │
@@ -75,6 +77,7 @@ Behaviour guarantees:
 - **Dedup** — same canonical URL always deduplicates; near-identical titles across sources within 72 h deduplicate (earliest copy wins).
 - **Language** — each item is tagged `en`/`so` by marker-word detection with the source's default as fallback, and displayed with a language chip.
 - **Moderation** — admin hide/pin flags live on the stored article and survive pipeline re-runs.
+- **Topics & images** — each item gets an editorial topic (politics, security, business, sports, culture, general) from a bilingual keyword classifier, and a thumbnail URL when the feed provides one (enclosure, `media:*`, or first inline `<img>`). Images hot-link to the publisher with a branded SVG placeholder fallback; a pipeline re-run backfills topic/image onto already-stored articles still present in feeds. Topic pages live at `/{locale}/news/topic/{topic}`.
 
 ### Scheduling
 

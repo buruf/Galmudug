@@ -10,6 +10,7 @@ import {
   truncateSummary,
 } from "@/lib/news/normalize";
 import { classifyCategory, detectLanguage, isGalmudugStory } from "@/lib/news/classify";
+import { classifyTopic } from "@/lib/news/topics";
 import { dedupeArticles, jaccard, titleTokens } from "@/lib/news/dedupe";
 import type { Article, NewsSource } from "@/lib/news/types";
 
@@ -48,6 +49,41 @@ describe("parseFeed", () => {
 
   it("throws on non-feed documents", () => {
     expect(() => parseFeed("<html><body>not a feed</body></html>")).toThrow();
+  });
+
+  it("extracts item images from enclosures and inline <img> tags", () => {
+    const items = parseFeed(fixture("rss2.xml"));
+    expect(items[0].image).toBe("https://example-news.so/img/hospital.jpg");
+    expect(items[1].image).toBe("https://example-news.so/img/shir.jpg");
+    expect(items[2].image).toBeUndefined();
+  });
+});
+
+describe("topics", () => {
+  it("classifies English topics", () => {
+    expect(classifyTopic("Parliament approves new election law")).toBe("politics");
+    expect(classifyTopic("Security forces repel attack near Hobyo")).toBe("security");
+    expect(classifyTopic("Livestock export figures hit record at Bosaso port")).toBe("business");
+    expect(classifyTopic("National football team names squad for qualifier")).toBe("sports");
+    expect(classifyTopic("Poetry festival celebrates Somali heritage")).toBe("culture");
+  });
+
+  it("classifies Somali topics", () => {
+    expect(classifyTopic("Madaxweynaha oo baarlamaanka la hadlay")).toBe("politics");
+    expect(classifyTopic("Ciidamada oo howlgal ka fuliyay deegaanka")).toBe("security");
+    expect(classifyTopic("Ganacsiga xoolaha oo kor u kacay")).toBe("business");
+    expect(classifyTopic("Horyaalka kubadda cagta oo billowday")).toBe("sports");
+    expect(classifyTopic("Abwaan caan ah oo gabay cusub daabacay")).toBe("culture");
+  });
+
+  it("prefers security over politics when both appear", () => {
+    expect(
+      classifyTopic("Ciidamada dowladda oo weerar ka hortagay, wasiirka oo hadlay")
+    ).toBe("security");
+  });
+
+  it("falls back to general", () => {
+    expect(classifyTopic("Roobab mahiigaan ah oo ka da'ay deegaanno")).toBe("general");
   });
 });
 

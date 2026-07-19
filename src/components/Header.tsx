@@ -24,14 +24,25 @@ export default function Header({
 
   const items = [
     { href: `/${locale}`, label: dict.nav.home, exact: true },
+    { href: `/${locale}/news`, label: dict.nav.news, newsRoot: true },
+    { href: `/${locale}/news/topic/politics`, label: dict.topics.politics },
+    { href: `/${locale}/news/topic/sports`, label: dict.topics.sports },
+    { href: `/${locale}/news/topic/culture`, label: dict.topics.culture },
     { href: `/${locale}/region`, label: dict.nav.region },
     { href: `/${locale}/districts`, label: dict.nav.districts },
-    { href: `/${locale}/news`, label: dict.nav.news },
     { href: `/${locale}/about`, label: dict.nav.about },
   ];
 
-  const isActive = (href: string, exact?: boolean) =>
-    exact ? pathname === href : pathname.startsWith(href);
+  const isActive = (item: { href: string; exact?: boolean; newsRoot?: boolean }) => {
+    if (item.exact) return pathname === item.href;
+    // The News tab covers the geographic feeds but not the topic pages,
+    // which highlight their own tab instead.
+    if (item.newsRoot)
+      return (
+        pathname.startsWith(item.href) && !pathname.includes("/news/topic/")
+      );
+    return pathname.startsWith(item.href);
+  };
 
   const rememberLocale = () => {
     document.cookie = `NEXT_LOCALE=${otherLocale};path=/;max-age=${60 * 60 * 24 * 365};samesite=lax`;
@@ -55,9 +66,9 @@ export default function Header({
             <Link
               key={item.href}
               href={item.href}
-              aria-current={isActive(item.href, item.exact) ? "page" : undefined}
+              aria-current={isActive(item) ? "page" : undefined}
               className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                isActive(item.href, item.exact)
+                isActive(item)
                   ? "bg-ocean-800 text-white"
                   : "text-ink/80 hover:bg-sand-100 hover:text-ocean-800"
               }`}
@@ -116,9 +127,9 @@ export default function Header({
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              aria-current={isActive(item.href, item.exact) ? "page" : undefined}
+              aria-current={isActive(item) ? "page" : undefined}
               className={`block rounded-md px-3 py-2.5 text-base font-medium ${
-                isActive(item.href, item.exact)
+                isActive(item)
                   ? "bg-ocean-800 text-white"
                   : "text-ink/80 hover:bg-sand-100"
               }`}

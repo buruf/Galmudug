@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { DISTRICTS } from "@/content/districts";
 import { REGION_PAGES } from "@/content/region";
 import { locales } from "@/lib/i18n/config";
+import { NAV_TOPICS } from "@/lib/news/topics";
 import { SITE_URL } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -9,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "", priority: 1 },
     { path: "/news", priority: 0.9 },
     { path: "/news/somalia", priority: 0.8 },
+    ...NAV_TOPICS.map((t) => ({ path: `/news/topic/${t}`, priority: 0.8 })),
     { path: "/region", priority: 0.8 },
     ...REGION_PAGES.filter((p) => p.slug !== "geography").map((p) => ({
       path: `/region/${p.slug}`,

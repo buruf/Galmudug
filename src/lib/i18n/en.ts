@@ -64,7 +64,20 @@ const en = {
       },
     },
   },
+  topics: {
+    politics: "Politics",
+    security: "Security",
+    business: "Business",
+    sports: "Sports",
+    culture: "Culture",
+    general: "Other news",
+  },
   news: {
+    topStories: "Top stories",
+    latestHeading: "Latest",
+    topicsLabel: "News topics",
+    topicIntro:
+      "The latest coverage in this section, aggregated from Somali news organisations. Every story links to — and belongs to — its original publisher.",
     galmudugTitle: "Galmudug news",
     galmudugIntro:
       "Headlines about Galmudug — Dhusamareb, Galkayo, Hobyo, Adado and the wider region — aggregated automatically from Somali news organisations. Each story links to, and belongs to, its original publisher.",
