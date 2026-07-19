@@ -125,9 +125,16 @@ Remove a source by deleting its entry. The pipeline, the sources lists on the ne
 
 `src/lib/news/classify.ts` holds the place-name list (Galmudug, Dhusamareb/Dhuusamarreeb, Galkayo/Gaalkacyo, Hobyo, Adado/Cadaado, Abudwak/Caabudwaaq, Harardhere/Xarardheere, El Buur/Ceelbuur, Guriel/Guriceel, Galgaduud, Mudug, and more, in both spelling traditions). Matching is word-boundary-aware and case-insensitive. Everything else from these sources lands in the Somalia national feed.
 
-## Swapping the article store
+## Article storage
 
-`src/lib/news/store.ts` defines the `ArticleStore` interface (`getAll`, `replaceAll`, `setFlags`). The default `JsonFileArticleStore` persists to `data/articles.json` with atomic writes — fine for a single Node host. On serverless (Vercel) the filesystem is ephemeral, so implement the interface against Postgres/Neon/KV and return it from `getArticleStore()`. Nothing else in the app touches storage directly.
+`src/lib/news/store.ts` defines the `ArticleStore` interface (`getAll`, `replaceAll`, `setFlags`) and ships two implementations. Selection is automatic in `getArticleStore()`; nothing else in the app touches storage directly.
+
+- **`JsonFileArticleStore`** (default) — persists to `data/articles.json` with atomic writes. Fine for local dev and any Node host with a disk.
+- **`RedisArticleStore`** — used automatically when `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (or legacy `KV_REST_API_URL` + `KV_REST_API_TOKEN`) are set. Talks to the Upstash REST API with plain `fetch` (no client dependency); the whole list lives under one key (`galmudug:articles:v1`). Required on serverless hosts like Vercel, where the filesystem is ephemeral.
+
+**Vercel setup:** in the project dashboard, add the Upstash Redis integration from the Marketplace (free tier is plenty — the store is a few hundred KB) and connect it to the project; it injects the env vars automatically. Redeploy, then trigger `/api/cron/fetch-news` once (or wait for the cron) to populate the store.
+
+To use a different backend (e.g. Postgres), implement the interface and return it from `getArticleStore()`.
 
 ## Admin
 

@@ -1,8 +1,12 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { JsonFileArticleStore, getVisibleArticles } from "@/lib/news/store";
+import {
+  JsonFileArticleStore,
+  RedisArticleStore,
+  getVisibleArticles,
+} from "@/lib/news/store";
 import type { Article } from "@/lib/news/types";
 
 let dir: string;
@@ -61,6 +65,69 @@ describe("JsonFileArticleStore", () => {
 
   it("returns null for unknown ids", async () => {
     expect(await store.setFlags("nope", { hidden: true })).toBeNull();
+  });
+});
+
+describe("RedisArticleStore", () => {
+  /** Minimal fake Upstash REST endpoint backed by a Map. */
+  const kv = new Map<string, string>();
+
+  beforeEach(() => {
+    kv.clear();
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (_url: unknown, init?: RequestInit) => {
+        const [cmd, key, value] = JSON.parse(String(init?.body)) as string[];
+        let result: string | null = null;
+        if (cmd === "GET") result = kv.get(key) ?? null;
+        if (cmd === "SET") {
+          kv.set(key, value);
+          result = "OK";
+        }
+        return {
+          ok: true,
+          json: async () => ({ result }),
+        } as Response;
+      })
+    );
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  const redisStore = () => new RedisArticleStore("https://fake.upstash.io", "token");
+
+  it("returns empty when the key does not exist", async () => {
+    expect(await redisStore().getAll()).toEqual([]);
+  });
+
+  it("persists and reads back articles through the REST protocol", async () => {
+    const store = redisStore();
+    await store.replaceAll([article({ id: "one" }), article({ id: "two" })]);
+    const all = await store.getAll();
+    expect(all.map((a) => a.id).sort()).toEqual(["one", "two"]);
+  });
+
+  it("updates moderation flags", async () => {
+    const store = redisStore();
+    await store.replaceAll([article({ id: "one" })]);
+    const updated = await store.setFlags("one", { pinned: true });
+    expect(updated?.pinned).toBe(true);
+    expect((await store.getAll())[0].pinned).toBe(true);
+  });
+
+  it("starts empty on a corrupt payload instead of crashing", async () => {
+    kv.set("galmudug:articles:v1", "{not json");
+    expect(await redisStore().getAll()).toEqual([]);
+  });
+
+  it("throws on HTTP errors so the pipeline can report the source run", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({ ok: false, status: 500 }) as Response)
+    );
+    await expect(redisStore().getAll()).rejects.toThrow("Redis HTTP 500");
   });
 });
 
