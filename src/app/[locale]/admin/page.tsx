@@ -5,6 +5,7 @@ import { isAdminConfigured, isAdminRequest } from "@/lib/admin-auth";
 import { getDictionary } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n/config";
 import { getArticleStore } from "@/lib/news/store";
+import { getOpinionStore } from "@/lib/opinions";
 
 export const dynamic = "force-dynamic";
 
@@ -34,7 +35,12 @@ export default async function AdminPage({
   }
 
   const authed = isAdminRequest();
-  const articles = authed ? await getArticleStore().getAll() : [];
+  const [articles, opinions] = authed
+    ? await Promise.all([
+        getArticleStore().getAll(),
+        getOpinionStore().getAll(),
+      ])
+    : [[], []];
 
   return (
     <AdminPanel
@@ -42,6 +48,7 @@ export default async function AdminPage({
       dict={dict}
       authed={authed}
       initialArticles={articles}
+      initialOpinions={opinions}
     />
   );
 }

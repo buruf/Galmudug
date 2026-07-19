@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Article } from "@/lib/news/types";
+import type { Opinion } from "@/lib/opinions";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -11,19 +12,56 @@ export default function AdminPanel({
   dict,
   authed,
   initialArticles,
+  initialOpinions,
 }: {
   locale: Locale;
   dict: Dictionary;
   authed: boolean;
   initialArticles: Article[];
+  initialOpinions: Opinion[];
 }) {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [articles, setArticles] = useState(initialArticles);
+  const [opinions, setOpinions] = useState(initialOpinions);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
+
+  async function setOpinionRead(id: string, read: boolean) {
+    setBusyId(id);
+    try {
+      const res = await fetch("/api/admin/opinions", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ id, read }),
+      });
+      if (res.ok) {
+        setOpinions((prev) =>
+          prev.map((o) => (o.id === id ? { ...o, read } : o))
+        );
+      }
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  async function deleteOpinion(id: string) {
+    setBusyId(id);
+    try {
+      const res = await fetch("/api/admin/opinions", {
+        method: "DELETE",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (res.ok) {
+        setOpinions((prev) => prev.filter((o) => o.id !== id));
+      }
+    } finally {
+      setBusyId(null);
+    }
+  }
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -156,8 +194,82 @@ export default function AdminPanel({
         </p>
       )}
 
+      {/* Reader messages */}
+      <section aria-labelledby="opinions-heading" className="mt-10">
+        <h2
+          id="opinions-heading"
+          className="flex items-center gap-2 font-display text-xl font-bold text-ocean-900"
+        >
+          {dict.admin.opinionsTitle}
+          {opinions.filter((o) => !o.read).length > 0 && (
+            <span className="rounded-full bg-clay-500 px-2 py-0.5 text-xs font-bold text-white">
+              {opinions.filter((o) => !o.read).length} {dict.admin.unreadBadge}
+            </span>
+          )}
+        </h2>
+        {opinions.length === 0 ? (
+          <p className="mt-4 rounded-lg border border-sand-200 bg-white p-6 text-ink/60">
+            {dict.admin.noOpinions}
+          </p>
+        ) : (
+          <ul className="mt-4 divide-y divide-sand-200 rounded-xl border border-sand-200 bg-white">
+            {opinions.map((o) => (
+              <li
+                key={o.id}
+                className={`p-4 ${o.read ? "" : "bg-ocean-50/60"}`}
+              >
+                <div className="flex flex-wrap items-center gap-2 text-xs text-ink/60">
+                  {!o.read && (
+                    <span className="rounded bg-clay-500 px-1.5 py-0.5 font-bold uppercase text-white">
+                      {dict.admin.unreadBadge}
+                    </span>
+                  )}
+                  <span className="font-semibold text-ink/80">
+                    {o.name || "—"}
+                  </span>
+                  {o.email && (
+                    <a
+                      href={`mailto:${o.email}`}
+                      className="text-ocean-700 hover:underline"
+                    >
+                      {o.email}
+                    </a>
+                  )}
+                  <span>· {o.locale.toUpperCase()}</span>
+                  <span>· {o.createdAt.slice(0, 16).replace("T", " ")}</span>
+                </div>
+                <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-ink">
+                  {o.message}
+                </p>
+                <div className="mt-3 flex gap-2">
+                  <button
+                    type="button"
+                    disabled={busyId === o.id}
+                    onClick={() => setOpinionRead(o.id, !o.read)}
+                    className="rounded-md border border-sand-300 px-3 py-1.5 text-xs font-semibold text-ink/70 hover:bg-sand-100 disabled:opacity-50"
+                  >
+                    {o.read ? dict.admin.markUnread : dict.admin.markRead}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={busyId === o.id}
+                    onClick={() => deleteOpinion(o.id)}
+                    className="rounded-md border border-clay-500/40 px-3 py-1.5 text-xs font-semibold text-clay-600 hover:bg-clay-500/10 disabled:opacity-50"
+                  >
+                    {dict.admin.deleteOpinion}
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <h2 className="mt-10 font-display text-xl font-bold text-ocean-900">
+        {dict.admin.articlesTitle}
+      </h2>
       {sorted.length === 0 ? (
-        <p className="mt-8 rounded-lg border border-sand-200 bg-white p-6 text-ink/60">
+        <p className="mt-4 rounded-lg border border-sand-200 bg-white p-6 text-ink/60">
           {dict.admin.empty}
         </p>
       ) : (

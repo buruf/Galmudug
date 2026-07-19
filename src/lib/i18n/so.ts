@@ -149,6 +149,19 @@ const so: Dictionary = {
     readMore: "Sii akhri",
     backToDistricts: "Dhammaan degmooyinka",
   },
+  opinion: {
+    title: "Ra'yigaaga",
+    intro:
+      "Nala wadaag fikradaada — mid ku saabsan bogga, wararka, ama Galmudug lafteeda. Farriin kasta waan akhrinaa.",
+    name: "Magaca (ikhtiyaari)",
+    email: "Iimayl (ikhtiyaari — haddii aad rabto jawaab)",
+    message: "Farriintaada",
+    submit: "Dir",
+    sending: "Waa la dirayaa…",
+    thanks: "Mahadsanid — farriintaadii waa la helay.",
+    error: "Wax baa qaldamay. Fadlan mar kale isku day.",
+    tooMany: "Farriimo dhowr ah ayaad horey u dirtay — fadlan mar dambe isku day.",
+  },
   footer: {
     disclaimerTitle: "Shabakad madax-bannaan",
     disclaimer:
@@ -180,6 +193,13 @@ const so: Dictionary = {
     refresh: "Hadda socodsii ururiyaha",
     refreshDone: "Ururiyuhu wuu dhammeeyay.",
     empty: "Weli war kuma kaydsana.",
+    opinionsTitle: "Farriimaha akhristayaasha",
+    unreadBadge: "cusub",
+    markRead: "Calaamadee akhrisan",
+    markUnread: "Calaamadee aan la akhrin",
+    deleteOpinion: "Tirtir",
+    noOpinions: "Weli farriin ma jirto.",
+    articlesTitle: "Maqaallada",
   },
   notFound: {
     title: "Bog lama helin",

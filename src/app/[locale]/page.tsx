@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleCard from "@/components/ArticleCard";
+import OpinionForm from "@/components/OpinionForm";
 import { SourceAttribution } from "@/components/NewsFeed";
 import WeaveDivider from "@/components/WeaveDivider";
 import { DISTRICTS } from "@/content/districts";
@@ -233,6 +234,8 @@ export default async function HomePage({
           ))}
         </p>
       </section>
+
+      <OpinionForm locale={locale} dict={dict} />
 
       <SourceAttribution dict={dict} />
     </div>

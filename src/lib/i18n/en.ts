@@ -147,6 +147,19 @@ const en = {
     readMore: "Read more",
     backToDistricts: "All districts",
   },
+  opinion: {
+    title: "Your opinion",
+    intro:
+      "Tell us what you think — about the site, the news, or Galmudug itself. We read every message.",
+    name: "Name (optional)",
+    email: "Email (optional — only if you want a reply)",
+    message: "Your message",
+    submit: "Send",
+    sending: "Sending…",
+    thanks: "Thank you — your message has been received.",
+    error: "Something went wrong. Please try again.",
+    tooMany: "You've sent several messages already — please try again later.",
+  },
   footer: {
     disclaimerTitle: "Independent website",
     disclaimer:
@@ -176,6 +189,13 @@ const en = {
     refresh: "Run aggregator now",
     refreshDone: "Aggregator run complete.",
     empty: "No articles in the store yet.",
+    opinionsTitle: "Reader messages",
+    unreadBadge: "new",
+    markRead: "Mark read",
+    markUnread: "Mark unread",
+    deleteOpinion: "Delete",
+    noOpinions: "No reader messages yet.",
+    articlesTitle: "Articles",
   },
   notFound: {
     title: "Page not found",
