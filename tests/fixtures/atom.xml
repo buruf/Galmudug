@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Test Atom Feed</title>
+  <link href="https://atom-news.example.com/" rel="self"/>
+  <entry>
+    <title>Fishing cooperative launched in Hobyo with 40 new boats</title>
+    <link rel="alternate" href="https://atom-news.example.com/articles/hobyo-fishing"/>
+    <summary>A new fishing cooperative was launched in the coastal town of Hobyo this week, distributing forty small boats to local fishermen.</summary>
+    <published>2026-07-13T15:00:00Z</published>
+  </entry>
+  <entry>
+    <title>Somalia signs new trade agreement with Kenya</title>
+    <link href="https://atom-news.example.com/articles/trade-kenya"/>
+    <content type="html">&lt;p&gt;The federal government signed a bilateral trade agreement in Nairobi on Friday.&lt;/p&gt;</content>
+    <updated>2026-07-12T10:00:00Z</updated>
+  </entry>
+</feed>

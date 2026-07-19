@@ -1,0 +1,24 @@
+# dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+
+# runtime data (article store)
+data/articles.json
+
+# env
+.env
+.env.local
+.env*.local
+
+# misc
+*.log
+.DS_Store
+.vercel
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# local machine settings
+.claude/

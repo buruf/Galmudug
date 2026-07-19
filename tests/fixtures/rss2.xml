@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Test Somali News</title>
+    <link>https://example-news.so</link>
+    <item>
+      <title><![CDATA[Galmudug president opens new hospital in Dhusamareb]]></title>
+      <link>https://example-news.so/2026/07/dhusamareb-hospital?utm_source=rss&amp;utm_medium=feed</link>
+      <description><![CDATA[<p>The president of Galmudug on Tuesday opened a new 60-bed hospital in <b>Dhusamareb</b>, the state capital, funded partly by the diaspora.</p>]]></description>
+      <pubDate>Tue, 14 Jul 2026 09:30:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Madaxweynaha Soomaaliya oo shir muhiim ah ku qabtay Muqdisho</title>
+      <link>https://example-news.so/2026/07/shir-muqdisho</link>
+      <description>Madaxweynaha ayaa maanta Muqdisho ku qabtay shir uu la yeeshay wasiirrada, waxaana lagu falanqeeyay xaaladda dalka iyo arrimaha amniga.</description>
+      <pubDate>Tue, 14 Jul 2026 07:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Oops</title>
+      <link>https://example-news.so/short</link>
+      <description>x</description>
+    </item>
+  </channel>
+</rss>
