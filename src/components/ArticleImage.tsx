@@ -35,14 +35,14 @@ export default function ArticleImage({
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : (
-        <Placeholder sourceName={sourceName} />
+        <Placeholder />
       )}
     </div>
   );
 }
 
-function Placeholder({ sourceName }: { sourceName: string }) {
-  const initial = (sourceName.trim()[0] ?? "G").toUpperCase();
+/** Generic "Galmudug News" banner shown whenever a story has no image. */
+function Placeholder() {
   return (
     <svg
       aria-hidden="true"
@@ -63,20 +63,33 @@ function Placeholder({ sourceName }: { sourceName: string }) {
       />
       <g className="fill-white" opacity="0.14">
         {Array.from({ length: 8 }).map((_, i) => (
-          <path key={i} d={`M${i * 44 + 8} 28 l8 -7 l8 7 l-8 7 Z`} />
+          <path key={i} d={`M${i * 44 + 8} 24 l8 -7 l8 7 l-8 7 Z`} />
         ))}
       </g>
       <text
         x="160"
-        y="102"
+        y="92"
         textAnchor="middle"
         className="fill-white"
-        opacity="0.85"
-        fontSize="56"
+        opacity="0.92"
+        fontSize="34"
         fontFamily="Georgia, serif"
         fontWeight="bold"
       >
-        {initial}
+        Galmudug
+      </text>
+      <text
+        x="160"
+        y="118"
+        textAnchor="middle"
+        className="fill-white"
+        opacity="0.75"
+        fontSize="15"
+        fontFamily="system-ui, sans-serif"
+        fontWeight="600"
+        letterSpacing="7"
+      >
+        NEWS
       </text>
     </svg>
   );
