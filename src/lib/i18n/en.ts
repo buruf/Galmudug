@@ -11,7 +11,7 @@ const en = {
     skipToContent: "Skip to main content",
     openMenu: "Open menu",
     closeMenu: "Close menu",
-    languageToggle: "La turjun Soomaali", // shown to EN readers: switch to Somali
+    languageToggle: "U turjun Soomaali", // shown to EN readers: switch to Somali
     languageToggleAria: "Switch language to Somali",
   },
   home: {
