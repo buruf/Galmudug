@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getDictionary } from "@/lib/i18n";
@@ -51,6 +52,7 @@ export default function LocaleLayout({
           {children}
         </main>
         <Footer locale={locale} dict={dict} />
+        <Analytics />
       </body>
     </html>
   );
