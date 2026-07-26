@@ -64,6 +64,32 @@ export function SomaliaFlag({ label }: { label: string }) {
   );
 }
 
+/**
+ * Compact two-flag strip for the homepage header — small, decorative,
+ * links through to the flags explainer on the Region page. Kept modest so
+ * the site never reads as an official government page.
+ */
+export function FlagStrip({ dict, locale }: { dict: Dictionary; locale: string }) {
+  const t = dict.region.symbols;
+  return (
+    <a
+      href={`/${locale}/region#flags-heading`}
+      className="group inline-flex items-center gap-2"
+      aria-label={`${t.galmudugCaption} · ${t.somaliaCaption}`}
+    >
+      <span className="block w-9 shrink-0 overflow-hidden rounded-[3px] ring-1 ring-black/10">
+        <GalmudugFlag label={t.galmudugAlt} />
+      </span>
+      <span className="block w-9 shrink-0 overflow-hidden rounded-[3px] ring-1 ring-black/10">
+        <SomaliaFlag label={t.somaliaAlt} />
+      </span>
+      <span className="text-[11px] font-medium uppercase tracking-wide text-ink/50 group-hover:text-ocean-700">
+        {t.title}
+      </span>
+    </a>
+  );
+}
+
 /** Encyclopedic flags section shown on the Region overview page. */
 export default function FlagsBlock({ dict }: { dict: Dictionary }) {
   const t = dict.region.symbols;
