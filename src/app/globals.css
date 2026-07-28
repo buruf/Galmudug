@@ -35,4 +35,30 @@
   .prose-region p {
     @apply mb-4 leading-relaxed text-ink/90;
   }
+
+  /* Breaking-news ticker: seamless loop (content is rendered twice, we
+     translate by exactly one copy). Pauses on hover; static when the
+     visitor prefers reduced motion. */
+  .ticker-track {
+    @apply flex w-max items-center gap-10 whitespace-nowrap;
+    animation: ticker-scroll 50s linear infinite;
+  }
+  .ticker-track:hover,
+  .ticker-track:focus-within {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track {
+      animation: none !important;
+    }
+  }
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }

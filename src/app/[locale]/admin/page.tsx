@@ -6,6 +6,7 @@ import { getDictionary } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n/config";
 import { getArticleStore } from "@/lib/news/store";
 import { getOpinionStore } from "@/lib/opinions";
+import { getNewsletterStore } from "@/lib/newsletter";
 
 export const dynamic = "force-dynamic";
 
@@ -35,12 +36,13 @@ export default async function AdminPage({
   }
 
   const authed = isAdminRequest();
-  const [articles, opinions] = authed
+  const [articles, opinions, subscribers] = authed
     ? await Promise.all([
         getArticleStore().getAll(),
         getOpinionStore().getAll(),
+        getNewsletterStore().getAll(),
       ])
-    : [[], []];
+    : [[], [], []];
 
   return (
     <AdminPanel
@@ -49,6 +51,7 @@ export default async function AdminPage({
       authed={authed}
       initialArticles={articles}
       initialOpinions={opinions}
+      initialSubscribers={subscribers}
     />
   );
 }

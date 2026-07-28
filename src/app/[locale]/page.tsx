@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleCard from "@/components/ArticleCard";
+import NewsTicker from "@/components/NewsTicker";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import OpinionForm from "@/components/OpinionForm";
 import { SourceAttribution } from "@/components/NewsFeed";
 import { FlagStrip } from "@/components/Flags";
@@ -12,7 +14,7 @@ import { isLocale, type Locale } from "@/lib/i18n/config";
 import { getAllVisible, getArticleStore } from "@/lib/news/store";
 import { NAV_TOPICS } from "@/lib/news/topics";
 import type { Article } from "@/lib/news/types";
-import { formatDate, pageMetadata } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -95,11 +97,16 @@ export default async function HomePage({
   const latest = take(all, 8);
 
   return (
-    <div className="mx-auto max-w-content px-4 py-8 sm:px-6">
+    <>
+      <NewsTicker
+        articles={all.filter((a) => a.category === "galmudug")}
+        dict={dict}
+      />
+      <div className="mx-auto max-w-content px-4 py-8 sm:px-6">
       {/* Dateline + flags */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-sand-200 pb-3">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/50">
-          {formatDate(new Date().toISOString(), locale)} · {dict.tagline}
+          {dict.tagline}
         </p>
         <FlagStrip dict={dict} locale={locale} />
       </div>
@@ -130,6 +137,7 @@ export default async function HomePage({
                   />
                 ))}
               </div>
+              <NewsletterSignup locale={locale} dict={dict} className="mt-6" />
             </aside>
           </section>
 
@@ -253,6 +261,7 @@ export default async function HomePage({
       <OpinionForm locale={locale} dict={dict} />
 
       <SourceAttribution dict={dict} />
-    </div>
+      </div>
+    </>
   );
 }

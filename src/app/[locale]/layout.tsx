@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/Header";
+import TopBar from "@/components/TopBar";
 import Footer from "@/components/Footer";
 import { getDictionary } from "@/lib/i18n";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
@@ -47,6 +48,7 @@ export default function LocaleLayout({
         <a href="#main" className="skip-link">
           {dict.nav.skipToContent}
         </a>
+        <TopBar locale={locale} dict={dict} />
         <Header locale={locale} dict={dict} />
         <main id="main" className="flex-1">
           {children}

@@ -1,5 +1,6 @@
 const en = {
-  siteName: "Galmudug.com",
+  siteName: "Galmudug News",
+  strap: "News · Region · People",
   tagline: "The land between the ocean and the plains",
   nav: {
     home: "Home",
@@ -159,6 +160,18 @@ const en = {
     attribution:
       "Videos are hosted on YouTube and remain the property of their creators and performers. Galmudug.com embeds them for reference and does not host or claim any rights to the music.",
   },
+  newsletter: {
+    title: "Stay with us",
+    intro: "Get the latest Galmudug headlines by email.",
+    placeholder: "Enter your email",
+    submit: "Subscribe",
+    sending: "Subscribing…",
+    thanks: "You're on the list — thank you!",
+    error: "Something went wrong. Please try again.",
+    tooMany: "Too many attempts — please try again later.",
+    consent:
+      "We use your email only for this newsletter. Unsubscribe anytime: admin@galmudug.com.",
+  },
   opinion: {
     title: "Your opinion",
     intro:
@@ -201,6 +214,13 @@ const en = {
     refresh: "Run aggregator now",
     refreshDone: "Aggregator run complete.",
     empty: "No articles in the store yet.",
+    subscribersTitle: "Newsletter subscribers",
+    copyEmails: "Copy all emails",
+    copiedEmails: "Copied.",
+    removeSubscriber: "Remove",
+    noSubscribers: "No subscribers yet.",
+    subscribersNote:
+      "Collection only for now — connect a mailing service to send campaigns. Copy the list to import it.",
     opinionsTitle: "Reader messages",
     unreadBadge: "new",
     markRead: "Mark read",

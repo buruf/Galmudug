@@ -95,22 +95,60 @@ export default function ArticleCard({
   variant?: ArticleCardVariant;
 }) {
   if (variant === "hero") {
+    const topic = article.topic ?? "general";
     return (
-      <article lang={article.language} className="group">
+      <article
+        lang={article.language}
+        className="group relative overflow-hidden rounded-xl shadow-md"
+      >
         <ArticleImage
           src={article.image}
           sourceName={article.sourceName}
-          className="aspect-video w-full rounded-xl"
+          className="aspect-[16/10] w-full sm:aspect-[16/9]"
         />
-        <Meta article={article} locale={locale} dict={dict} className="mt-3 text-sm" />
-        <h2 className="mt-2 font-display text-2xl font-bold leading-tight text-ink sm:text-3xl">
-          <StoryLink article={article} />
-        </h2>
-        {article.summary && (
-          <p className="mt-3 line-clamp-3 leading-relaxed text-ink/75">
-            {article.summary}
-          </p>
-        )}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/5"
+        />
+        <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
+          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-white/80">
+            {article.pinned && (
+              <span className="rounded-sm bg-clay-500 px-1.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-white">
+                {dict.news.pinned}
+              </span>
+            )}
+            {topic !== "general" && (
+              <span
+                className={`rounded-sm px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${TOPIC_CHIP[topic]}`}
+              >
+                {dict.topics[topic]}
+              </span>
+            )}
+            <span className="font-semibold text-white">{article.sourceName}</span>
+            <span aria-hidden="true">·</span>
+            <time
+              dateTime={article.publishedAt}
+              title={formatDate(article.publishedAt, locale)}
+            >
+              {timeAgo(article.publishedAt, locale)}
+            </time>
+          </div>
+          <h2 className="mt-2 font-display text-2xl font-bold leading-tight text-white drop-shadow-sm sm:text-4xl">
+            <a
+              href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              {article.title}
+            </a>
+          </h2>
+          {article.summary && (
+            <p className="mt-2.5 hidden max-w-2xl leading-relaxed text-white/85 sm:line-clamp-2">
+              {article.summary}
+            </p>
+          )}
+        </div>
       </article>
     );
   }

@@ -1,7 +1,8 @@
 import type { Dictionary } from "./en";
 
 const so: Dictionary = {
-  siteName: "Galmudug.com",
+  siteName: "Galmudug News",
+  strap: "War · Gobol · Dad",
   tagline: "Dhulka u dhexeeya badda iyo bannaanka",
   nav: {
     home: "Bogga Hore",
@@ -161,6 +162,18 @@ const so: Dictionary = {
     attribution:
       "Muuqaallada waxaa martigeliya YouTube, waxayna iska leeyihiin abuurayaasha iyo qaadayaasha. Galmudug.com wuxuu u soo bandhigayaa tixraac ahaan, mana sheeganayo xuquuq muusigga ah.",
   },
+  newsletter: {
+    title: "Nala soco",
+    intro: "Ku hel wararkii ugu dambeeyay ee Galmudug iimaylkaaga.",
+    placeholder: "Geli iimaylkaaga",
+    submit: "Isdiiwaangeli",
+    sending: "Waa lagu darayaa…",
+    thanks: "Waad ku biirtay liiska — mahadsanid!",
+    error: "Wax baa qaldamay. Fadlan mar kale isku day.",
+    tooMany: "Isku dayo badan — fadlan mar dambe isku day.",
+    consent:
+      "Iimaylkaaga waxaan u isticmaalnaa keliya wargeyskan. Ka-bixid mar kasta: admin@galmudug.com.",
+  },
   opinion: {
     title: "Ra'yigaaga",
     intro:
@@ -205,6 +218,13 @@ const so: Dictionary = {
     refresh: "Hadda socodsii ururiyaha",
     refreshDone: "Ururiyuhu wuu dhammeeyay.",
     empty: "Weli war kuma kaydsana.",
+    subscribersTitle: "Macaamiisha wargeyska",
+    copyEmails: "Koobbi dhammaan iimaylada",
+    copiedEmails: "Waa la koobbiyeeyay.",
+    removeSubscriber: "Ka saar",
+    noSubscribers: "Weli qofna iskuma diiwaangelin.",
+    subscribersNote:
+      "Hadda liiska ayaa la ururinayaa oo keliya — si aad wargeys u dirto, ku xir adeeg iimayl dirid. Koobbi liiska si aad u dhoofiso.",
     opinionsTitle: "Farriimaha akhristayaasha",
     unreadBadge: "cusub",
     markRead: "Calaamadee akhrisan",

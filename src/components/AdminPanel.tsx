@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Article } from "@/lib/news/types";
 import type { Opinion } from "@/lib/opinions";
+import type { Subscriber } from "@/lib/newsletter";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
 
@@ -13,21 +14,53 @@ export default function AdminPanel({
   authed,
   initialArticles,
   initialOpinions,
+  initialSubscribers,
 }: {
   locale: Locale;
   dict: Dictionary;
   authed: boolean;
   initialArticles: Article[];
   initialOpinions: Opinion[];
+  initialSubscribers: Subscriber[];
 }) {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [articles, setArticles] = useState(initialArticles);
   const [opinions, setOpinions] = useState(initialOpinions);
+  const [subscribers, setSubscribers] = useState(initialSubscribers);
+  const [copied, setCopied] = useState(false);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
+
+  async function removeSubscriber(email: string) {
+    setBusyId(email);
+    try {
+      const res = await fetch("/api/admin/newsletter", {
+        method: "DELETE",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        setSubscribers((prev) => prev.filter((s) => s.email !== email));
+      }
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  async function copyEmails() {
+    try {
+      await navigator.clipboard.writeText(
+        subscribers.map((s) => s.email).join("\n")
+      );
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      /* clipboard unavailable — ignore */
+    }
+  }
 
   async function setOpinionRead(id: string, read: boolean) {
     setBusyId(id);
@@ -259,6 +292,61 @@ export default function AdminPanel({
                     {dict.admin.deleteOpinion}
                   </button>
                 </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      {/* Newsletter subscribers */}
+      <section aria-labelledby="subscribers-heading" className="mt-10">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2
+            id="subscribers-heading"
+            className="flex items-center gap-2 font-display text-xl font-bold text-ocean-900"
+          >
+            {dict.admin.subscribersTitle}
+            <span className="rounded-full bg-ocean-100 px-2 py-0.5 text-xs font-bold text-ocean-800">
+              {subscribers.length}
+            </span>
+          </h2>
+          {subscribers.length > 0 && (
+            <button
+              type="button"
+              onClick={copyEmails}
+              className="rounded-md border border-sand-300 px-3 py-1.5 text-xs font-semibold text-ink/70 hover:bg-sand-100"
+            >
+              {copied ? dict.admin.copiedEmails : dict.admin.copyEmails}
+            </button>
+          )}
+        </div>
+        <p className="mt-1.5 text-sm text-ink/60">{dict.admin.subscribersNote}</p>
+        {subscribers.length === 0 ? (
+          <p className="mt-4 rounded-lg border border-sand-200 bg-white p-6 text-ink/60">
+            {dict.admin.noSubscribers}
+          </p>
+        ) : (
+          <ul className="mt-4 divide-y divide-sand-200 rounded-xl border border-sand-200 bg-white">
+            {subscribers.map((s) => (
+              <li
+                key={s.email}
+                className="flex flex-wrap items-center gap-3 px-4 py-2.5"
+              >
+                <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink">
+                  {s.email}
+                </span>
+                <span className="text-xs uppercase text-ink/40">{s.locale}</span>
+                <span className="text-xs text-ink/40">
+                  {s.createdAt.slice(0, 10)}
+                </span>
+                <button
+                  type="button"
+                  disabled={busyId === s.email}
+                  onClick={() => removeSubscriber(s.email)}
+                  className="rounded-md border border-sand-300 px-2.5 py-1 text-xs font-semibold text-ink/70 hover:bg-sand-100 disabled:opacity-50"
+                >
+                  {dict.admin.removeSubscriber}
+                </button>
               </li>
             ))}
           </ul>

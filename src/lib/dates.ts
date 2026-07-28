@@ -1,6 +1,41 @@
 import type { Locale } from "@/lib/i18n/config";
 import { formatDate } from "@/lib/seo";
 
+const SO_WEEKDAYS = [
+  "Axad",
+  "Isniin",
+  "Talaado",
+  "Arbaco",
+  "Khamiis",
+  "Jimce",
+  "Sabti",
+];
+const SO_MONTHS = [
+  "Janaayo",
+  "Febraayo",
+  "Maarso",
+  "Abriil",
+  "Maajo",
+  "Juun",
+  "Luulyo",
+  "Agoosto",
+  "Sebtembar",
+  "Oktoobar",
+  "Nofembar",
+  "Desembar",
+];
+
+/**
+ * Full masthead date ("Sabti, 27 Luulyo 2026" / "Saturday, 27 July 2026").
+ * Somali is hand-localized — Intl has no reliable Somali calendar data.
+ */
+export function formatFullDate(date: Date, locale: Locale): string {
+  if (locale === "so") {
+    return `${SO_WEEKDAYS[date.getDay()]}, ${date.getDate()} ${SO_MONTHS[date.getMonth()]} ${date.getFullYear()}`;
+  }
+  return new Intl.DateTimeFormat("en-GB", { dateStyle: "full" }).format(date);
+}
+
 /**
  * Newsroom-style relative timestamp, hand-localized for both site languages
  * (Intl.RelativeTimeFormat has no reliable Somali data across runtimes).
