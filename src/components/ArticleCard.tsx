@@ -96,21 +96,35 @@ export default function ArticleCard({
 }) {
   if (variant === "hero") {
     const topic = article.topic ?? "general";
+    const hasImage = Boolean(article.image);
+    // With a picture: headline written over the picture. Without one: a
+    // clean solid panel — never the watermark banner behind the headline.
     return (
       <article
         lang={article.language}
-        className="group relative overflow-hidden rounded-xl shadow-md"
+        className="group relative overflow-hidden rounded-xl bg-ocean-900 shadow-md"
       >
-        <ArticleImage
-          src={article.image}
-          sourceName={article.sourceName}
-          className="aspect-[16/10] w-full sm:aspect-[16/9]"
-        />
+        {hasImage && (
+          <>
+            <ArticleImage
+              src={article.image}
+              sourceName={article.sourceName}
+              fallback="plain"
+              className="aspect-[16/10] w-full sm:aspect-[16/9]"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/5"
+            />
+          </>
+        )}
         <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/5"
-        />
-        <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
+          className={
+            hasImage
+              ? "absolute inset-x-0 bottom-0 p-5 sm:p-7"
+              : "p-5 sm:p-7 sm:py-12"
+          }
+        >
           <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-white/80">
             {article.pinned && (
               <span className="rounded-sm bg-clay-500 px-1.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-white">

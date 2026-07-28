@@ -11,16 +11,28 @@ export default function ArticleImage({
   src,
   sourceName,
   className = "",
+  fallback = "banner",
 }: {
   src?: string;
   sourceName: string;
   className?: string;
+  /**
+   * What to show when there is no image (or it fails to load):
+   * "banner" = the Galmudug News watermark; "plain" = nothing, letting the
+   * parent's own background show (used by the hero so the watermark never
+   * competes with the overlaid headline).
+   */
+  fallback?: "banner" | "plain";
 }) {
   const [failed, setFailed] = useState(false);
   const showImage = src && !failed;
 
   return (
-    <div className={`relative overflow-hidden bg-ocean-100 ${className}`}>
+    <div
+      className={`relative overflow-hidden ${
+        fallback === "banner" ? "bg-ocean-100" : ""
+      } ${className}`}
+    >
       {showImage ? (
         // Plain <img>: source domains are unknown/varied, so Next image
         // optimization is not applicable. Alt is empty by design — the
@@ -34,9 +46,9 @@ export default function ArticleImage({
           onError={() => setFailed(true)}
           className="absolute inset-0 h-full w-full object-cover"
         />
-      ) : (
+      ) : fallback === "banner" ? (
         <Placeholder />
-      )}
+      ) : null}
     </div>
   );
 }
