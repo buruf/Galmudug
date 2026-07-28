@@ -52,18 +52,43 @@ export default function Header({
 
   return (
     <header className="sticky top-0 z-40 border-b border-sand-200 bg-white/95 shadow-sm backdrop-blur">
-      {/* Masthead */}
-      <div className="mx-auto flex max-w-content items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href={`/${locale}`} aria-label={dict.siteName}>
+      {/* Masthead: logo · inline nav (desktop) · contact + language */}
+      <div className="mx-auto flex max-w-content items-center justify-between gap-3 px-4 py-2.5 sm:px-6">
+        <Link href={`/${locale}`} aria-label={dict.siteName} className="shrink-0">
           <LogoLockup strap={dict.strap} />
         </Link>
 
-        <div className="flex items-center gap-2">
+        <nav aria-label="Main" className="hidden items-center xl:flex">
+          {items
+            .filter((item) => !item.exact) // logo is the Home link on desktop
+            .map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={isActive(item) ? "page" : undefined}
+                className={`whitespace-nowrap border-b-2 px-2 py-1.5 text-[12px] font-bold uppercase tracking-wide transition-colors ${
+                  isActive(item)
+                    ? "border-ocean-600 text-ocean-600"
+                    : "border-transparent text-ink/75 hover:text-ocean-600"
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+        </nav>
+
+        <div className="flex shrink-0 items-center gap-2">
+          <Link
+            href={`/${locale}/about`}
+            className="hidden rounded-md bg-ocean-950 px-3.5 py-2 text-[12px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-ocean-800 xl:inline-block"
+          >
+            {dict.nav.contact}
+          </Link>
           <Link
             href={switchedPath}
             onClick={rememberLocale}
             aria-label={dict.nav.languageToggleAria}
-            className="rounded-full border border-ocean-600 px-3 py-1.5 text-xs font-semibold text-ocean-700 transition-colors hover:bg-ocean-600 hover:text-white"
+            className="rounded-md border border-ocean-600 px-2.5 py-1.5 text-xs font-semibold text-ocean-700 transition-colors hover:bg-ocean-600 hover:text-white"
           >
             {dict.nav.languageToggle}
           </Link>
@@ -73,7 +98,7 @@ export default function Header({
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? dict.nav.closeMenu : dict.nav.openMenu}
-            className="rounded-md p-2 text-ocean-800 hover:bg-sand-100 lg:hidden"
+            className="rounded-md p-2 text-ocean-800 hover:bg-sand-100 xl:hidden"
           >
             <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
               {open ? (
@@ -96,35 +121,12 @@ export default function Header({
         </div>
       </div>
 
-      {/* Desktop nav rail */}
-      <nav
-        aria-label="Main"
-        className="hidden border-t border-sand-200 lg:block"
-      >
-        <div className="mx-auto flex max-w-content items-stretch px-4 sm:px-6">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              aria-current={isActive(item) ? "page" : undefined}
-              className={`border-b-[3px] px-3.5 py-2.5 text-[13px] font-semibold uppercase tracking-wide transition-colors ${
-                isActive(item)
-                  ? "border-clay-500 text-ocean-800"
-                  : "border-transparent text-ink/70 hover:border-ocean-200 hover:text-ocean-800"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      </nav>
-
       {/* Mobile nav */}
       {open && (
         <nav
           id="mobile-nav"
           aria-label="Main"
-          className="border-t border-sand-200 bg-white px-4 pb-4 pt-2 lg:hidden"
+          className="border-t border-sand-200 bg-white px-4 pb-4 pt-2 xl:hidden"
         >
           {items.map((item) => (
             <Link

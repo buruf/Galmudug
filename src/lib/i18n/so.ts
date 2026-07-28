@@ -11,6 +11,7 @@ const so: Dictionary = {
     news: "Wararka",
     music: "Muusig",
     about: "Nagu Saabsan",
+    contact: "Nagala soo xiriir",
     admin: "Maamul",
     skipToContent: "U bood qoraalka bogga",
     openMenu: "Fur liiska",
@@ -77,6 +78,9 @@ const so: Dictionary = {
     general: "Warar kale",
   },
   news: {
+    readStory: "Akhri warbixinta",
+    tickerBack: "Cinwaannadii hore",
+    tickerForward: "Cinwaannada xiga",
     topStories: "Wararka ugu waaweyn",
     latestHeading: "Ugu dambeeyay",
     topicsLabel: "Qaybaha wararka",

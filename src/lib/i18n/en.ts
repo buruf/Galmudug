@@ -9,6 +9,7 @@ const en = {
     news: "News",
     music: "Music",
     about: "About",
+    contact: "Contact us",
     admin: "Admin",
     skipToContent: "Skip to main content",
     openMenu: "Open menu",
@@ -75,6 +76,9 @@ const en = {
     general: "Other news",
   },
   news: {
+    readStory: "Read the story",
+    tickerBack: "Previous headlines",
+    tickerForward: "Next headlines",
     topStories: "Top stories",
     latestHeading: "Latest",
     topicsLabel: "News topics",

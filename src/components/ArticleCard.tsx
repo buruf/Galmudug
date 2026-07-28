@@ -148,6 +148,15 @@ export default function ArticleCard({
               {article.summary}
             </p>
           )}
+          <a
+            href={article.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-2 rounded-md border border-white/50 px-4 py-2 text-[12px] font-bold uppercase tracking-wide text-white transition-colors hover:border-white hover:bg-white/10"
+          >
+            {dict.news.readStory}
+            <span aria-hidden="true">→</span>
+          </a>
         </div>
       </article>
     );
@@ -157,18 +166,18 @@ export default function ArticleCard({
     return (
       <article
         lang={article.language}
-        className="flex gap-3 border-b border-sand-200 pb-3 last:border-b-0 last:pb-0"
+        className="flex overflow-hidden rounded-lg border border-sand-200 bg-white shadow-sm transition-shadow hover:shadow-md"
       >
         <ArticleImage
           src={article.image}
           sourceName={article.sourceName}
-          className="h-16 w-24 flex-none rounded-md"
+          className="w-28 flex-none self-stretch sm:w-32"
         />
-        <div className="min-w-0">
-          <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-ink">
+        <div className="min-w-0 p-3">
+          <Meta article={article} locale={locale} dict={dict} className="text-xs" />
+          <h3 className="mt-1.5 line-clamp-2 text-sm font-bold leading-snug text-ink">
             <StoryLink article={article} />
           </h3>
-          <Meta article={article} locale={locale} dict={dict} className="mt-1 text-xs" />
         </div>
       </article>
     );

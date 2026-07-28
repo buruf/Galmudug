@@ -67,11 +67,16 @@ const config: Config = {
           "Noto Sans",
           "sans-serif",
         ],
+        // Mockup direction: headlines are the same clean sans as body,
+        // just heavier — no serif anywhere.
         display: [
-          "Georgia",
-          "Times New Roman",
-          "Noto Serif",
-          "serif",
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Noto Sans",
+          "sans-serif",
         ],
       },
       maxWidth: {

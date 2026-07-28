@@ -50,13 +50,13 @@ function SectionHeading({
   linkLabel: string;
 }) {
   return (
-    <div className="flex items-baseline justify-between gap-4 border-b-2 border-ocean-800 pb-2">
-      <h2 className="font-display text-xl font-bold text-ocean-900 sm:text-2xl">
+    <div className="flex items-end justify-between gap-4 border-b border-sand-200">
+      <h2 className="-mb-px border-b-[3px] border-ocean-600 pb-2 text-base font-extrabold uppercase tracking-wide text-ink sm:text-lg">
         {title}
       </h2>
       <Link
         href={href}
-        className="whitespace-nowrap text-sm font-semibold text-clay-600 hover:underline"
+        className="whitespace-nowrap pb-2 text-xs font-bold uppercase tracking-wide text-ocean-600 hover:underline"
       >
         {linkLabel} →
       </Link>
@@ -123,8 +123,10 @@ export default async function HomePage({
               <ArticleCard article={lead} locale={locale} dict={dict} variant="hero" />
             )}
             <aside aria-label={dict.news.topStories}>
-              <h2 className="border-b-2 border-ocean-800 pb-2 font-display text-lg font-bold text-ocean-900">
-                {dict.news.topStories}
+              <h2 className="border-b border-sand-200 pb-2 text-base font-extrabold uppercase tracking-wide text-ink">
+                <span className="-mb-px inline-block border-b-[3px] border-ocean-600 pb-2">
+                  {dict.news.topStories}
+                </span>
               </h2>
               <div className="mt-3 flex flex-col gap-3">
                 {topRail.map((a) => (
