@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ArticleCard from "@/components/ArticleCard";
+import FeatureSlider from "@/components/FeatureSlider";
 import NewsTicker from "@/components/NewsTicker";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import OpinionForm from "@/components/OpinionForm";
@@ -30,13 +31,6 @@ export function generateMetadata({
     title: `Galmudug.com — ${dict.tagline}`,
     description: dict.home.heroSubtitle,
   });
-}
-
-/** Pick the front-page lead: pinned beats everything, then newest with image. */
-function pickLead(articles: Article[]): Article | undefined {
-  return (
-    articles.find((a) => a.pinned) ?? articles.find((a) => a.image) ?? articles[0]
-  );
 }
 
 function SectionHeading({
@@ -85,9 +79,15 @@ export default async function HomePage({
     return picked;
   };
 
-  const lead = pickLead(all);
-  if (lead) used.add(lead.id);
-  // Mockup: exactly three boxed cards beside the hero, level with its height.
+  // Feature slider: pinned stories first, then the newest with pictures, so
+  // the rotation leads with imagery wherever possible.
+  const featured = [
+    ...all.filter((a) => a.pinned),
+    ...all.filter((a) => !a.pinned && a.image),
+    ...all.filter((a) => !a.pinned && !a.image),
+  ].slice(0, 5);
+  featured.forEach((a) => used.add(a.id));
+  // Mockup: exactly three boxed cards beside the slider, level with it.
   const topRail = take(all, 3);
   const galmudug = take(all.filter((a) => a.category === "galmudug"), 4);
   const topicSections = NAV_TOPICS.map((topic) => ({
@@ -103,31 +103,30 @@ export default async function HomePage({
         dict={dict}
       />
       <div className="mx-auto max-w-content px-4 py-8 sm:px-6">
-      {/* Dateline */}
-      <p className="border-b border-sand-200 pb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink/50">
-        {dict.tagline}
-      </p>
-
       {all.length === 0 ? (
         <p className="mt-8 rounded-lg border border-sand-200 bg-white p-8 text-ink/60">
           {dict.news.empty}
         </p>
       ) : (
         <>
-          {/* Lead story + top-stories rail. items-start stops the grid from
-              stretching the hero to the rail's height (the navy box would
-              balloon below the picture). */}
-          <section className="mt-6 grid items-start gap-8 lg:grid-cols-[2fr_1fr]">
-            {lead && (
-              <ArticleCard article={lead} locale={locale} dict={dict} variant="hero" />
+          {/* Feature slider + top-stories rail: on desktop both columns are
+              the same height (the rail's three cards set it), so the slider
+              and the cards end level. */}
+          <section className="grid items-stretch gap-8 lg:grid-cols-[2fr_1fr]">
+            {featured.length > 0 && (
+              <FeatureSlider
+                articles={featured}
+                locale={locale}
+                dict={dict}
+              />
             )}
-            <aside aria-label={dict.news.topStories}>
+            <aside aria-label={dict.news.topStories} className="flex flex-col">
               <h2 className="border-b border-sand-200 pb-2 text-base font-extrabold uppercase tracking-wide text-ink">
                 <span className="-mb-px inline-block border-b-[3px] border-ocean-600 pb-2">
                   {dict.news.topStories}
                 </span>
               </h2>
-              <div className="mt-3 flex flex-col gap-3">
+              <div className="mt-3 flex flex-1 flex-col gap-3">
                 {topRail.map((a) => (
                   <ArticleCard
                     key={a.id}

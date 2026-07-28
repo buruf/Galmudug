@@ -66,46 +66,74 @@ function Placeholder() {
       viewBox="0 0 320 180"
       preserveAspectRatio="xMidYMid slice"
     >
-      <rect width="320" height="180" className="fill-ocean-50" />
+      <defs>
+        <linearGradient id="gm-ph-sky" x1="0" y1="0" x2="0.35" y2="1">
+          <stop offset="0%" stopColor="#2b6fc6" />
+          <stop offset="55%" stopColor="#245ba3" />
+          <stop offset="100%" stopColor="#1e3e6b" />
+        </linearGradient>
+      </defs>
+
+      <rect width="320" height="180" fill="url(#gm-ph-sky)" />
+
+      {/* Star field echoing the flag's five-pointed star */}
+      <g fill="#ffffff" opacity="0.09">
+        <circle cx="42" cy="34" r="1.6" />
+        <circle cx="96" cy="22" r="1.1" />
+        <circle cx="150" cy="38" r="1.3" />
+        <circle cx="228" cy="26" r="1.5" />
+        <circle cx="278" cy="44" r="1.1" />
+      </g>
+
+      {/* Layered coastline: the ocean the region sits on */}
       <path
-        d="M0 130 Q80 110 160 128 T320 126 V180 H0 Z"
-        className="fill-ocean-100"
+        d="M0 120 Q60 104 130 118 T320 112 V180 H0 Z"
+        fill="#ffffff"
+        opacity="0.07"
+      />
+      <path
+        d="M0 140 Q80 126 165 141 T320 134 V180 H0 Z"
+        fill="#ffffff"
+        opacity="0.09"
+      />
+      <path
+        d="M0 160 Q90 148 190 161 T320 156 V180 H0 Z"
+        fill="#ffffff"
+        opacity="0.12"
+      />
+
+      {/* Flag star, sitting above the wordmark */}
+      <polygon
+        points="160,52 163.5,62.8 174.9,62.8 165.7,69.4 169.2,80.2 160,73.5 150.8,80.2 154.3,69.4 145.1,62.8 156.5,62.8"
+        fill="#ffffff"
         opacity="0.9"
       />
-      <path
-        d="M0 152 Q100 138 200 152 T320 150 V180 H0 Z"
-        className="fill-ocean-200"
-        opacity="0.6"
-      />
-      <g className="fill-ocean-200" opacity="0.5">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <path key={i} d={`M${i * 44 + 8} 24 l8 -7 l8 7 l-8 7 Z`} />
-        ))}
-      </g>
+
       <text
         x="160"
-        y="92"
+        y="106"
         textAnchor="middle"
-        className="fill-ocean-500"
-        opacity="0.85"
-        fontSize="30"
-        fontFamily="system-ui, sans-serif"
-        fontWeight="700"
+        fill="#ffffff"
+        fontSize="25"
+        fontFamily="system-ui, -apple-system, Segoe UI, sans-serif"
+        fontWeight="800"
+        letterSpacing="-0.5"
       >
-        Galmudug
+        GALMUDUG
+        <tspan fill="#4ecb8a">.COM</tspan>
       </text>
       <text
         x="160"
-        y="116"
+        y="124"
         textAnchor="middle"
-        className="fill-ocean-400"
-        opacity="0.8"
-        fontSize="13"
-        fontFamily="system-ui, sans-serif"
+        fill="#ffffff"
+        opacity="0.6"
+        fontSize="8.5"
+        fontFamily="system-ui, -apple-system, Segoe UI, sans-serif"
         fontWeight="600"
-        letterSpacing="7"
+        letterSpacing="3.5"
       >
-        NEWS
+        WARARKA GOBOLKA
       </text>
     </svg>
   );

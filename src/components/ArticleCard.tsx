@@ -102,17 +102,17 @@ export default function ArticleCard({
     return (
       <article
         lang={article.language}
-        className="group relative overflow-hidden rounded-xl bg-ocean-900 shadow-md"
+        className="group relative h-full min-h-[15rem] overflow-hidden rounded-xl bg-ocean-900 shadow-md"
       >
         {hasImage && (
           <>
-            {/* Mockup proportions: a wide, short banner (~2.1:1 on desktop)
-                that lines up with the three sidebar cards. */}
+            {/* Fills the slider, whose height is set by the sibling rail so
+                the two columns always end level. */}
             <ArticleImage
               src={article.image}
               sourceName={article.sourceName}
               fallback="plain"
-              className="aspect-[16/10] w-full sm:aspect-[2.1/1]"
+              className="absolute inset-0 h-full w-full"
             />
             <div
               aria-hidden="true"
@@ -124,7 +124,7 @@ export default function ArticleCard({
           className={
             hasImage
               ? "absolute inset-x-0 bottom-0 p-5 sm:px-7 sm:pb-6"
-              : "p-5 sm:p-7 sm:py-10"
+              : "flex h-full flex-col justify-end p-5 sm:p-7"
           }
         >
           <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-white/80">

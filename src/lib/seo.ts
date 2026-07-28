@@ -45,12 +45,22 @@ export function pageMetadata(opts: {
   };
 }
 
+/**
+ * Short month names for both languages. Intl has no reliable "so" data and
+ * resolves differently on the server than in browsers, which produced a
+ * hydration mismatch once dates rendered inside client components — so both
+ * languages are formatted deterministically here.
+ */
+const MONTHS_SHORT: Record<Locale, string[]> = {
+  en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  so: ["Jan", "Feb", "Mar", "Abr", "May", "Jun", "Lul", "Ago", "Seb", "Okt", "Nof", "Des"],
+};
+
 export function formatDate(iso: string, locale: Locale): string {
-  try {
-    return new Intl.DateTimeFormat(locale === "so" ? "so" : "en-GB", {
-      dateStyle: "medium",
-    }).format(new Date(iso));
-  } catch {
-    return iso.slice(0, 10);
-  }
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso.slice(0, 10);
+  const month = MONTHS_SHORT[locale][d.getUTCMonth()];
+  return locale === "so"
+    ? `${d.getUTCDate()}-${month}-${d.getUTCFullYear()}`
+    : `${d.getUTCDate()} ${month} ${d.getUTCFullYear()}`;
 }

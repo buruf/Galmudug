@@ -1,4 +1,5 @@
-import { SOCIAL_LINKS, WEATHER_LOCATION } from "@/content/site-config";
+import { SOCIAL_LINKS, WEATHER_CITIES } from "@/content/site-config";
+import WeatherRotator, { type CityWeather } from "@/components/WeatherRotator";
 import { formatFullDate } from "@/lib/dates";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
@@ -15,32 +16,36 @@ function weatherEmoji(code: number): string {
 }
 
 /**
- * Live temperature for the configured location via Open-Meteo (keyless).
- * Cached 30 minutes; renders nothing when the API is unreachable — the top
- * bar must never break the page or show stale-invented data.
+ * Live temperatures for every configured Galmudug town via Open-Meteo
+ * (keyless), cached 30 minutes. Towns that fail are simply dropped — the
+ * top bar must never break the page or show invented data.
  */
 async function Weather({ locale }: { locale: Locale }) {
-  try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_LOCATION.latitude}&longitude=${WEATHER_LOCATION.longitude}&current=temperature_2m,weather_code`;
-    const res = await fetch(url, { next: { revalidate: 1800 } });
-    if (!res.ok) return null;
-    const data = (await res.json()) as {
-      current?: { temperature_2m?: number; weather_code?: number };
-    };
-    const temp = data.current?.temperature_2m;
-    if (typeof temp !== "number") return null;
-    const code = data.current?.weather_code ?? 0;
-    return (
-      <span className="flex items-center gap-1.5 whitespace-nowrap">
-        <span aria-hidden="true">{weatherEmoji(code)}</span>
-        <span>
-          {Math.round(temp)}°C · {WEATHER_LOCATION.name[locale]}
-        </span>
-      </span>
-    );
-  } catch {
-    return null;
-  }
+  const results = await Promise.all(
+    WEATHER_CITIES.map(async (city): Promise<CityWeather | null> => {
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}&current=temperature_2m,weather_code`;
+        const res = await fetch(url, { next: { revalidate: 1800 } });
+        if (!res.ok) return null;
+        const data = (await res.json()) as {
+          current?: { temperature_2m?: number; weather_code?: number };
+        };
+        const temp = data.current?.temperature_2m;
+        if (typeof temp !== "number") return null;
+        return {
+          name: city.name[locale],
+          temp: Math.round(temp),
+          emoji: weatherEmoji(data.current?.weather_code ?? 0),
+        };
+      } catch {
+        return null;
+      }
+    })
+  );
+
+  const readings = results.filter((r): r is CityWeather => r !== null);
+  if (readings.length === 0) return null;
+  return <WeatherRotator readings={readings} />;
 }
 
 function SocialIcon({ id }: { id: string }) {

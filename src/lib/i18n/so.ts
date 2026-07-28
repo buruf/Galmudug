@@ -2,7 +2,7 @@ import type { Dictionary } from "./en";
 
 const so: Dictionary = {
   siteName: "Galmudug.com",
-  strap: "War · Gobol · Dad",
+  strap: "Dhulka u dhexeeya badda iyo bannaanka",
   tagline: "Dhulka u dhexeeya badda iyo bannaanka",
   nav: {
     home: "Bogga Hore",
@@ -16,7 +16,7 @@ const so: Dictionary = {
     skipToContent: "U bood qoraalka bogga",
     openMenu: "Fur liiska",
     closeMenu: "Xir liiska",
-    languageToggle: "Read in English",
+    languageToggle: "English",
     languageToggleAria: "Luqadda u beddel af-Ingiriisi",
   },
   home: {

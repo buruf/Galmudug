@@ -1,6 +1,6 @@
 const en = {
   siteName: "Galmudug.com",
-  strap: "News · Region · People",
+  strap: "The land between the ocean and the plains",
   tagline: "The land between the ocean and the plains",
   nav: {
     home: "Home",
@@ -14,7 +14,7 @@ const en = {
     skipToContent: "Skip to main content",
     openMenu: "Open menu",
     closeMenu: "Close menu",
-    languageToggle: "U turjun Soomaali", // shown to EN readers: switch to Somali
+    languageToggle: "Soomaali", // shown to EN readers: switch to Somali
     languageToggleAria: "Switch language to Somali",
   },
   home: {
