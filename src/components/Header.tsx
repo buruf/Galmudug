@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { FlagStrip } from "@/components/Flags";
 import { LogoLockup } from "@/components/Logo";
 import type { Dictionary } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n/config";
@@ -54,9 +55,12 @@ export default function Header({
     <header className="sticky top-0 z-40 border-b border-sand-200 bg-white/95 shadow-sm backdrop-blur">
       {/* Masthead: logo · inline nav (desktop) · contact + language */}
       <div className="mx-auto flex max-w-content items-center justify-between gap-3 px-4 py-2.5 sm:px-6">
-        <Link href={`/${locale}`} aria-label={dict.siteName} className="shrink-0">
-          <LogoLockup strap={dict.strap} />
-        </Link>
+        <div className="flex shrink-0 items-center gap-3">
+          <Link href={`/${locale}`} aria-label={dict.siteName}>
+            <LogoLockup strap={dict.strap} />
+          </Link>
+          <FlagStrip dict={dict} locale={locale} showLabel={false} />
+        </div>
 
         <nav aria-label="Main" className="hidden items-center xl:flex">
           {items

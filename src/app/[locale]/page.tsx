@@ -6,7 +6,6 @@ import NewsTicker from "@/components/NewsTicker";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import OpinionForm from "@/components/OpinionForm";
 import { SourceAttribution } from "@/components/NewsFeed";
-import { FlagStrip } from "@/components/Flags";
 import WeaveDivider from "@/components/WeaveDivider";
 import { DISTRICTS } from "@/content/districts";
 import { getDictionary, type Dictionary } from "@/lib/i18n";
@@ -103,13 +102,10 @@ export default async function HomePage({
         dict={dict}
       />
       <div className="mx-auto max-w-content px-4 py-8 sm:px-6">
-      {/* Dateline + flags */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-sand-200 pb-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/50">
-          {dict.tagline}
-        </p>
-        <FlagStrip dict={dict} locale={locale} />
-      </div>
+      {/* Dateline */}
+      <p className="border-b border-sand-200 pb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink/50">
+        {dict.tagline}
+      </p>
 
       {all.length === 0 ? (
         <p className="mt-8 rounded-lg border border-sand-200 bg-white p-8 text-ink/60">
