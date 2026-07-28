@@ -87,7 +87,8 @@ export default async function HomePage({
 
   const lead = pickLead(all);
   if (lead) used.add(lead.id);
-  const topRail = take(all, 5);
+  // Mockup: exactly three boxed cards beside the hero, level with its height.
+  const topRail = take(all, 3);
   const galmudug = take(all.filter((a) => a.category === "galmudug"), 4);
   const topicSections = NAV_TOPICS.map((topic) => ({
     topic,
@@ -113,8 +114,10 @@ export default async function HomePage({
         </p>
       ) : (
         <>
-          {/* Lead story + top-stories rail */}
-          <section className="mt-6 grid gap-8 lg:grid-cols-[2fr_1fr]">
+          {/* Lead story + top-stories rail. items-start stops the grid from
+              stretching the hero to the rail's height (the navy box would
+              balloon below the picture). */}
+          <section className="mt-6 grid items-start gap-8 lg:grid-cols-[2fr_1fr]">
             {lead && (
               <ArticleCard article={lead} locale={locale} dict={dict} variant="hero" />
             )}
@@ -135,7 +138,6 @@ export default async function HomePage({
                   />
                 ))}
               </div>
-              <NewsletterSignup locale={locale} dict={dict} className="mt-6" />
             </aside>
           </section>
 
@@ -255,6 +257,8 @@ export default async function HomePage({
           ))}
         </p>
       </section>
+
+      <NewsletterSignup locale={locale} dict={dict} className="mt-12" />
 
       <OpinionForm locale={locale} dict={dict} />
 
