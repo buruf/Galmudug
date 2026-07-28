@@ -106,11 +106,13 @@ export default function ArticleCard({
       >
         {hasImage && (
           <>
+            {/* Mockup proportions: a wide, short banner (~2.1:1 on desktop)
+                that lines up with the three sidebar cards. */}
             <ArticleImage
               src={article.image}
               sourceName={article.sourceName}
               fallback="plain"
-              className="aspect-[16/10] w-full sm:aspect-[16/9]"
+              className="aspect-[16/10] w-full sm:aspect-[2.1/1]"
             />
             <div
               aria-hidden="true"
@@ -121,8 +123,8 @@ export default function ArticleCard({
         <div
           className={
             hasImage
-              ? "absolute inset-x-0 bottom-0 p-5 sm:p-7"
-              : "p-5 sm:p-7 sm:py-12"
+              ? "absolute inset-x-0 bottom-0 p-5 sm:px-7 sm:pb-6"
+              : "p-5 sm:p-7 sm:py-10"
           }
         >
           <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-white/80">
@@ -147,7 +149,7 @@ export default function ArticleCard({
               {timeAgo(article.publishedAt, locale)}
             </time>
           </div>
-          <h2 className="mt-2 font-display text-2xl font-bold leading-tight text-white drop-shadow-sm sm:text-4xl">
+          <h2 className="mt-2 font-display text-xl font-bold leading-tight text-white drop-shadow-sm sm:text-2xl lg:text-3xl">
             <a
               href={article.url}
               target="_blank"
@@ -158,7 +160,7 @@ export default function ArticleCard({
             </a>
           </h2>
           {article.summary && (
-            <p className="mt-2.5 hidden max-w-2xl leading-relaxed text-white/85 sm:line-clamp-2">
+            <p className="mt-2 hidden max-w-2xl text-[15px] leading-relaxed text-white/85 lg:line-clamp-1">
               {article.summary}
             </p>
           )}
@@ -166,7 +168,7 @@ export default function ArticleCard({
             href={article.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center gap-2 rounded-md border border-white/50 px-4 py-2 text-[12px] font-bold uppercase tracking-wide text-white transition-colors hover:border-white hover:bg-white/10"
+            className="mt-3.5 inline-flex items-center gap-2 rounded-md border border-white/50 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wide text-white transition-colors hover:border-white hover:bg-white/10"
           >
             {dict.news.readStory}
             <span aria-hidden="true">→</span>
