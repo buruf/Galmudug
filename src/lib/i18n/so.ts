@@ -8,6 +8,7 @@ const so: Dictionary = {
     region: "Gobolka",
     districts: "Degmooyinka",
     news: "Wararka",
+    music: "Muusig",
     about: "Nagu Saabsan",
     admin: "Maamul",
     skipToContent: "U bood qoraalka bogga",
@@ -148,6 +149,17 @@ const so: Dictionary = {
     role: "Waxa lagu yaqaan",
     readMore: "Sii akhri",
     backToDistricts: "Dhammaan degmooyinka",
+  },
+  music: {
+    title: "Muusigga & heesaha Galmudug",
+    metaDescription:
+      "Daawo heesaha caanka ah ee Galmudug — heeso wadani ah oo gobolka lagu ammaanayo oo ay qaadeen fanaaniin sida Sakariye Kobciye iyo Xamdi Bilan, oo YouTube lagu daabacay.",
+    intro:
+      "Galmudug waxay leedahay fan casri ah oo firfircoon, maalinta dowlad-goboleedka (14 Agoosto) ayaana dhalisay noocyo badan oo heeso wadani ah. Tani waa ururin heeso Galmudug caan ah — oo ay qaadeen fanaaniin sida Sakariye Kobciye, Xamdi Bilan, Ismaciil Aarka iyo Kooxda Waaberi Galmudug. Riix si aad u daawato, ama midkiiba ka fur YouTube, halkaas oo ay u taal xuquuqda abuurayaasheeda.",
+    play: "Daawo muuqaalka",
+    watchOnYoutube: "Ka daawo YouTube",
+    attribution:
+      "Muuqaallada waxaa martigeliya YouTube, waxayna iska leeyihiin abuurayaasha iyo qaadayaasha. Galmudug.com wuxuu u soo bandhigayaa tixraac ahaan, mana sheeganayo xuquuq muusigga ah.",
   },
   opinion: {
     title: "Ra'yigaaga",

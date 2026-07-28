@@ -6,6 +6,7 @@ const en = {
     region: "The Region",
     districts: "Districts",
     news: "News",
+    music: "Music",
     about: "About",
     admin: "Admin",
     skipToContent: "Skip to main content",
@@ -146,6 +147,17 @@ const en = {
     role: "Known for",
     readMore: "Read more",
     backToDistricts: "All districts",
+  },
+  music: {
+    title: "Galmudug music & songs",
+    metaDescription:
+      "Watch popular Galmudug songs and music videos — patriotic anthems celebrating the region by artists such as Sakariye Kobciye and Xamdi Bilan, hosted on YouTube.",
+    intro:
+      "Galmudug has a lively contemporary music scene, and its statehood day (14 August) has inspired a whole genre of pride songs. This is a collection of popular Galmudug anthems — by artists such as Sakariye Kobciye, Xamdi Bilan, Ismaciil Aarka and the Waaberi Galmudug troupe. Press play to watch, or open each one on YouTube, where it belongs to its creators.",
+    play: "Play video",
+    watchOnYoutube: "Watch on YouTube",
+    attribution:
+      "Videos are hosted on YouTube and remain the property of their creators and performers. Galmudug.com embeds them for reference and does not host or claim any rights to the music.",
   },
   opinion: {
     title: "Your opinion",

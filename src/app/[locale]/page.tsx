@@ -199,7 +199,7 @@ export default async function HomePage({
         >
           {dict.home.sectionsTitle}
         </h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
           {(
             [
               [`/${locale}/region`, dict.home.sections.geography],
@@ -222,6 +222,17 @@ export default async function HomePage({
               </p>
             </Link>
           ))}
+          <Link
+            href={`/${locale}/music`}
+            className="group rounded-lg border border-sand-200 bg-white p-4 transition-colors hover:border-ocean-300"
+          >
+            <h3 className="font-display font-semibold text-ocean-800 group-hover:text-ocean-600">
+              {dict.nav.music}
+            </h3>
+            <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-ink/70">
+              {dict.music.title}
+            </p>
+          </Link>
         </div>
         <p className="mt-5 text-sm text-ink/70">
           <span className="font-semibold text-ink/80">{dict.nav.districts}:</span>{" "}

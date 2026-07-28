@@ -30,6 +30,7 @@ export default function Header({
     { href: `/${locale}/news/topic/culture`, label: dict.topics.culture },
     { href: `/${locale}/region`, label: dict.nav.region },
     { href: `/${locale}/districts`, label: dict.nav.districts },
+    { href: `/${locale}/music`, label: dict.nav.music },
     { href: `/${locale}/about`, label: dict.nav.about },
   ];
 
