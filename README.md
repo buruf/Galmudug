@@ -94,13 +94,30 @@ Behaviour guarantees:
 | Radio Dalsan | so | RSS | WordPress feed |
 | SONNA | so | scrape fallback | Feed URL serves HTML |
 | Horseed Media | so | RSS | WordPress feed |
-| VOA Somali | so | RSS | `voasomali.com/api/` |
 | BBC Somali | so | RSS | `feeds.bbci.co.uk/somali/rss.xml` |
 | Radio Muqdisho | so | RSS | WordPress feed |
 | SNTV | so | RSS | WordPress feed |
-| Galmudug State House | so | RSS | `forceCategory: galmudug` — all stories are regional |
-| Cadaado District | so | RSS | `forceCategory: galmudug` — all stories are regional |
-| Hobyo Port | en | scrape only | No RSS at all (`feedUrl` omitted); scrapes `/news`; `forceCategory: galmudug` |
+| Caasimada Online | so | RSS | Heavy national + Galmudug politics coverage |
+| Shabelle Media | so | RSS | Publishes in both Somali and English |
+| Galmudug State House | so | RSS | `forceCategory: galmudug` — all stories are regional. Publishes rarely (months between posts) |
+| Cadaado District | so | RSS | `forceCategory: galmudug` — all stories are regional. Publishes rarely |
+| Hobyo Port | en | scrape only | No RSS at all (`feedUrl` omitted); scrapes `/news`; `forceCategory: galmudug`. Publishes rarely |
+
+**Removed:** VOA Somali (2026-07-28) — returns HTTP 403 to server-side
+requests on both its feed and homepage, so neither RSS nor scraping reaches it.
+
+**Coverage limits worth knowing.** The aggregator can only surface what its
+sources publish to a readable feed. Two categories are systematically missed:
+
+- **Video-first reporting.** Campaign rallies and events are often posted
+  straight to Facebook, YouTube, or TikTok. Those platforms have no usable
+  RSS, so such stories only appear here if an outlet also writes them up.
+- **Hyper-local coverage.** District-level news (a rally in Caabudwaaq, port
+  construction progress in Hobyo) frequently appears only on the official
+  Galmudug/district sites, which go months between posts, or on social media.
+
+When a story is missing, check the source's own site first: if it is not in
+any feed, the gap is upstream, not in the pipeline.
 
 ### Adding / removing a source
 

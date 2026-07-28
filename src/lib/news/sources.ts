@@ -78,17 +78,10 @@ export const NEWS_SOURCES: NewsSource[] = [
       linkSelector: "article a, h2 a, h3 a",
     },
   },
-  {
-    id: "voa-somali",
-    name: "VOA Somali",
-    homepage: "https://www.voasomali.com",
-    feedUrl: "https://www.voasomali.com/api/",
-    language: "so",
-    scrape: {
-      url: "https://www.voasomali.com",
-      linkSelector: "a[href*='/a/']",
-    },
-  },
+  // NOTE: VOA Somali (voasomali.com) was removed on 2026-07-28 — it returns
+  // HTTP 403 to server-side requests on both its feed and its homepage, so
+  // neither RSS nor the scrape fallback can reach it. Re-add here if that
+  // ever changes.
   {
     id: "bbc-somali",
     name: "BBC Somali",
@@ -119,6 +112,28 @@ export const NEWS_SOURCES: NewsSource[] = [
     language: "so",
     scrape: {
       url: "https://sntv.so",
+      linkSelector: "article a, h2 a, h3 a",
+    },
+  },
+  {
+    id: "caasimada",
+    name: "Caasimada Online",
+    homepage: "https://caasimada.net",
+    feedUrl: "https://caasimada.net/feed/",
+    language: "so",
+    scrape: {
+      url: "https://caasimada.net",
+      linkSelector: "article a, h2 a, h3 a",
+    },
+  },
+  {
+    id: "shabelle",
+    name: "Shabelle Media",
+    homepage: "https://www.shabellemedia.com",
+    feedUrl: "https://www.shabellemedia.com/feed/",
+    language: "so",
+    scrape: {
+      url: "https://www.shabellemedia.com",
       linkSelector: "article a, h2 a, h3 a",
     },
   },
