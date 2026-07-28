@@ -33,10 +33,14 @@ function MusicCard({ video, dict }: { video: MusicVideo; dict: Dictionary }) {
   return (
     <figure className="flex flex-col overflow-hidden rounded-xl border border-sand-200 bg-white shadow-sm transition-shadow hover:shadow-md">
       <div className="relative aspect-video bg-ocean-900">
+        {/* Regular youtube.com embed (not youtube-nocookie): the privacy
+            domain hides the viewer's YouTube session, which triggers
+            "sign in to confirm you're not a bot" checks for many users.
+            The player still only loads after an explicit click. */}
         {playing ? (
           <iframe
             className="absolute inset-0 h-full w-full"
-            src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`}
+            src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`}
             title={`${video.title} — ${video.artist}`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

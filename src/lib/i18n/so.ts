@@ -1,7 +1,7 @@
 import type { Dictionary } from "./en";
 
 const so: Dictionary = {
-  siteName: "Galmudug News",
+  siteName: "Galmudug.com",
   strap: "War · Gobol · Dad",
   tagline: "Dhulka u dhexeeya badda iyo bannaanka",
   nav: {

@@ -1,5 +1,5 @@
 const en = {
-  siteName: "Galmudug News",
+  siteName: "Galmudug.com",
   strap: "News · Region · People",
   tagline: "The land between the ocean and the plains",
   nav: {

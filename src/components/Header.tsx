@@ -55,12 +55,9 @@ export default function Header({
     <header className="sticky top-0 z-40 border-b border-sand-200 bg-white/95 shadow-sm backdrop-blur">
       {/* Masthead: logo · inline nav (desktop) · contact + language */}
       <div className="mx-auto flex max-w-content items-center justify-between gap-3 px-4 py-2.5 sm:px-6">
-        <div className="flex shrink-0 items-center gap-3">
-          <Link href={`/${locale}`} aria-label={dict.siteName}>
-            <LogoLockup strap={dict.strap} />
-          </Link>
-          <FlagStrip dict={dict} locale={locale} showLabel={false} />
-        </div>
+        <Link href={`/${locale}`} aria-label={dict.siteName} className="shrink-0">
+          <LogoLockup strap={dict.strap} />
+        </Link>
 
         <nav aria-label="Main" className="hidden items-center xl:flex">
           {items
@@ -81,7 +78,8 @@ export default function Header({
             ))}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2.5">
+          <FlagStrip dict={dict} locale={locale} showLabel={false} />
           <Link
             href={`/${locale}/about`}
             className="hidden rounded-md bg-ocean-950 px-3.5 py-2 text-[12px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-ocean-800 xl:inline-block"

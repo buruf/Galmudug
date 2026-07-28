@@ -44,8 +44,8 @@ export function LogoMark({ size = 40 }: { size?: number }) {
 }
 
 /**
- * Full lockup per the mockup: mark at left, stacked all-caps
- * "GALMUDUG / NEWS" wordmark, strapline underneath.
+ * Full lockup: mark at left, single-line all-caps "GALMUDUG.COM"
+ * wordmark (".COM" in the flag green), strapline underneath.
  */
 export function LogoLockup({
   strap,
@@ -56,16 +56,15 @@ export function LogoLockup({
 }) {
   return (
     <span className="flex items-center gap-2.5">
-      <LogoMark size={compact ? 36 : 46} />
+      <LogoMark size={compact ? 34 : 42} />
       <span className="flex flex-col">
         <span
-          className={`whitespace-nowrap font-display font-extrabold uppercase leading-[1.05] tracking-tight text-ocean-600 ${
+          className={`whitespace-nowrap font-display font-extrabold uppercase leading-none tracking-tight ${
             compact ? "text-base" : "text-lg sm:text-xl"
           }`}
         >
-          Galmudug
-          <br />
-          News
+          <span className="text-ocean-600">Galmudug</span>
+          <span className="text-acacia-600">.com</span>
         </span>
         {strap && !compact && (
           <span className="mt-1 whitespace-nowrap text-[9px] font-medium tracking-[0.08em] text-ink/50">
