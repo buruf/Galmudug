@@ -99,12 +99,17 @@ Behaviour guarantees:
 | SNTV | so | RSS | WordPress feed |
 | Caasimada Online | so | RSS | Heavy national + Galmudug politics coverage |
 | Shabelle Media | so | RSS | Publishes in both Somali and English |
+| Puntland Post | so | RSS | Covers Gaalkacyo / northern Mudug — Galmudug stories Mogadishu outlets miss |
 | Galmudug State House | so | RSS | `forceCategory: galmudug` — all stories are regional. Publishes rarely (months between posts) |
 | Cadaado District | so | RSS | `forceCategory: galmudug` — all stories are regional. Publishes rarely |
 | Hobyo Port | en | scrape only | No RSS at all (`feedUrl` omitted); scrapes `/news`; `forceCategory: galmudug`. Publishes rarely |
 
-**Removed:** VOA Somali (2026-07-28) — returns HTTP 403 to server-side
-requests on both its feed and homepage, so neither RSS nor scraping reaches it.
+**Removed:** VOA Somali (2026-07-28). The site is reachable and still
+publishing, but every feed under `voasomali.com/rssfeeds` is frozen (the
+freshest carries March 2025 items), and scraping its homepage returns a
+"most read" widget mixing stories from 2019 onward with no dates — undated
+scraped items fall back to "now", so they would surface as today's news.
+Re-add only if VOA restores a dated, current feed.
 
 **Coverage limits worth knowing.** The aggregator can only surface what its
 sources publish to a readable feed. Two categories are systematically missed:

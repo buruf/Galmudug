@@ -78,10 +78,15 @@ export const NEWS_SOURCES: NewsSource[] = [
       linkSelector: "article a, h2 a, h3 a",
     },
   },
-  // NOTE: VOA Somali (voasomali.com) was removed on 2026-07-28 — it returns
-  // HTTP 403 to server-side requests on both its feed and its homepage, so
-  // neither RSS nor the scrape fallback can reach it. Re-add here if that
-  // ever changes.
+  // NOTE: VOA Somali (voasomali.com) was removed on 2026-07-28. The site
+  // itself is reachable and still publishing, but it is unusable as a source:
+  //   * every feed under /rssfeeds is frozen — the freshest carries items
+  //     from March 2025, most are years older;
+  //   * scraping the homepage returns its "most read" widget, which mixes
+  //     stories from 2019 through today and exposes no dates. Undated scraped
+  //     items fall back to "now" (see normalize.ts), so those would surface as
+  //     today's breaking news.
+  // Re-add only if VOA restores a dated, current feed.
   {
     id: "bbc-somali",
     name: "BBC Somali",
@@ -134,6 +139,19 @@ export const NEWS_SOURCES: NewsSource[] = [
     language: "so",
     scrape: {
       url: "https://www.shabellemedia.com",
+      linkSelector: "article a, h2 a, h3 a",
+    },
+  },
+  {
+    // Covers northern Mudug and Gaalkacyo, a city split between Puntland and
+    // Galmudug — so it carries Galmudug stories the Mogadishu outlets miss.
+    id: "puntland-post",
+    name: "Puntland Post",
+    homepage: "https://www.puntlandpost.net",
+    feedUrl: "https://www.puntlandpost.net/feed/",
+    language: "so",
+    scrape: {
+      url: "https://www.puntlandpost.net",
       linkSelector: "article a, h2 a, h3 a",
     },
   },
