@@ -5,9 +5,8 @@ node_modules/
 .next/
 out/
 
-# runtime data (article + opinion stores)
-data/articles.json
-data/opinions.json
+# runtime data (all local stores)
+data/
 
 # env
 .env
