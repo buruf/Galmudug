@@ -1,6 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { backfillImages, fetchOgImage } from "@/lib/news/og-image";
 
+type Item = { url: string; image?: string; imageChecked?: boolean };
+
 function htmlResponse(body: string, ok = true): Response {
   return {
     ok,
@@ -88,7 +90,7 @@ describe("backfillImages", () => {
   afterEach(() => vi.unstubAllGlobals());
 
   it("fills only the items missing an image", async () => {
-    const items = [
+    const items: Item[] = [
       { url: "https://x.so/has-image/1" },
       { url: "https://x.so/has-image/2", image: "https://x.so/existing.jpg" },
     ];
@@ -99,7 +101,7 @@ describe("backfillImages", () => {
   });
 
   it("marks attempted items so failures are not retried forever", async () => {
-    const items = [{ url: "https://x.so/no-image/1" }];
+    const items: Item[] = [{ url: "https://x.so/no-image/1" }];
     await backfillImages(items);
     expect(items[0].image).toBeUndefined();
     expect(items[0].imageChecked).toBe(true);
@@ -111,7 +113,7 @@ describe("backfillImages", () => {
   });
 
   it("respects the per-run lookup cap", async () => {
-    const items = Array.from({ length: 10 }, (_, i) => ({
+    const items: Item[] = Array.from({ length: 10 }, (_, i) => ({
       url: `https://x.so/has-image/${i}`,
     }));
     const filled = await backfillImages(items, 4);

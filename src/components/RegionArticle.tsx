@@ -16,6 +16,16 @@ export function regionHref(locale: Locale, slug: string): string {
   return `/${locale}${HREF[slug] ?? "/region"}`;
 }
 
+/**
+ * Short nav label for a region page. The dictionary already carries these
+ * for the homepage cards ("Geography" / "Juqraafi"), so the switcher reuses
+ * them instead of the long page titles ("Geography of Galmudug").
+ */
+function SHORT_LABEL(dict: Dictionary, slug: string): string | undefined {
+  const sections = dict.home.sections as Record<string, { title: string }>;
+  return sections[slug]?.title;
+}
+
 export default function RegionArticle({
   page,
   locale,
@@ -41,6 +51,33 @@ export default function RegionArticle({
           {page.intro[locale]}
         </p>
       </header>
+
+      {/* Section switcher sits above the article so readers can see the other
+          Region pages and move between them without scrolling to the end. */}
+      <nav
+        aria-label={dict.home.sectionsTitle}
+        className="mt-6 border-y border-sand-200 py-3"
+      >
+        <ul className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {REGION_PAGES.map((p) => (
+            <li key={p.slug} className="shrink-0">
+              <Link
+                href={regionHref(locale, p.slug)}
+                aria-current={p.slug === page.slug ? "page" : undefined}
+                className={`inline-block whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                  p.slug === page.slug
+                    ? "bg-ocean-700 text-white"
+                    : "bg-sand-100 text-ocean-800 hover:bg-ocean-100"
+                }`}
+              >
+                {/* Short labels ("Geography") rather than the full page titles
+                    ("Geography of Galmudug"), so the row stays on one line. */}
+                {SHORT_LABEL(dict, p.slug) ?? p.title[locale]}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <WeaveDivider className="mt-6 text-sand-300" />
 
