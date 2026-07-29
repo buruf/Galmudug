@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import type { Article, NewsSource, RawItem } from "./types";
 import { classifyCategory, detectLanguage } from "./classify";
-import { classifyTopic } from "./topics";
+import { CLASSIFIER_VERSION, classifyTopic } from "./topics";
 
 const MAX_SUMMARY_LENGTH = 280;
 
@@ -100,6 +100,7 @@ export function normalizeItem(
     category: source.forceCategory ?? classifyCategory(title, summary),
     language: detectLanguage(text, source.language),
     topic: classifyTopic(text),
+    topicVersion: CLASSIFIER_VERSION,
     image: raw.image,
     ...(/(?:youtube\.com|youtu\.be)/i.test(url) ? { isVideo: true } : {}),
     hidden: false,

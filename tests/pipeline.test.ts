@@ -118,7 +118,42 @@ describe("topics", () => {
   });
 
   it("falls back to general", () => {
-    expect(classifyTopic("Roobab mahiigaan ah oo ka da'ay deegaanno")).toBe("general");
+    expect(classifyTopic("Bandhig suuq-geyn ah oo maanta la furay")).toBe("general");
+  });
+
+  it("classifies the topics added in v2", () => {
+    expect(classifyTopic("Cholera outbreak prompts vaccination drive")).toBe("health");
+    expect(classifyTopic("Tallaalka daacuunka oo laga bilaabay isbitaalka")).toBe("health");
+    expect(classifyTopic("New university opens for students in Adado")).toBe("education");
+    expect(classifyTopic("Dugsiyada iyo macallimiinta oo imtixaanka diyaarinaya")).toBe(
+      "education"
+    );
+    expect(classifyTopic("Drought and famine displace thousands")).toBe("environment");
+    expect(classifyTopic("Abaaraha iyo biyo la'aanta oo saameeyay")).toBe("environment");
+    expect(classifyTopic("Diaspora remittances support families")).toBe("diaspora");
+    expect(classifyTopic("Qurbajoogta iyo xawilaadda lacagta")).toBe("diaspora");
+  });
+
+  // Somali suffixes: one root appears as weerar / weerarka / weerarradii.
+  // Exact-word matching missed the inflections, stranding stories in general.
+  it("matches inflected Somali forms via stems", () => {
+    expect(classifyTopic("Weerarradii lala beegsaday saldhigga")).toBe("security");
+    expect(classifyTopic("Doorashooyinka soo socda oo la qorsheeyay")).toBe("politics");
+    expect(classifyTopic("Madaxweynaha iyo wasiirrada oo shir yeeshay")).toBe("politics");
+  });
+
+  it("classifies English diplomatic coverage as politics", () => {
+    expect(
+      classifyTopic("Somali, Kenyan foreign ministers meet for bilateral talks")
+    ).toBe("politics");
+    expect(classifyTopic("African Union Executive Council opens 49th session")).toBe(
+      "politics"
+    );
+  });
+
+  it("keeps a stem from matching an unrelated longer word", () => {
+    // "amni" must not swallow ordinary words that merely start the same way.
+    expect(classifyTopic("Bandhig suuq-geyn ah oo maanta la furay")).toBe("general");
   });
 
   // Regressions from real mis-filed stories: Somali words whose everyday

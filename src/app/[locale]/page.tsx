@@ -94,10 +94,24 @@ export default async function HomePage({
   // Mockup: exactly three boxed cards beside the slider, level with it.
   const topRail = take(all, 3);
   const galmudug = take(all.filter((a) => a.category === "galmudug"), 4);
+  // Only the best-stocked topics get a front-page section — there are now
+  // nine topics, and rendering them all would bloat the homepage. Counts are
+  // measured before `take` runs, since `take` consumes from the shared pool.
+  const HOMEPAGE_TOPIC_SECTIONS = 5;
   const topicSections = NAV_TOPICS.map((topic) => ({
     topic,
-    articles: take(all.filter((a) => (a.topic ?? "general") === topic), 3),
-  })).filter((s) => s.articles.length >= 2);
+    available: all.filter(
+      (a) => (a.topic ?? "general") === topic && !used.has(a.id)
+    ).length,
+  }))
+    .filter((s) => s.available >= 2)
+    .sort((a, b) => b.available - a.available)
+    .slice(0, HOMEPAGE_TOPIC_SECTIONS)
+    .map(({ topic }) => ({
+      topic,
+      articles: take(all.filter((a) => (a.topic ?? "general") === topic), 3),
+    }))
+    .filter((s) => s.articles.length >= 2);
   const latest = take(all, 8);
 
   return (

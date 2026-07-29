@@ -6,6 +6,10 @@ export type ArticleTopic =
   | "politics"
   | "security"
   | "business"
+  | "health"
+  | "education"
+  | "environment"
+  | "diaspora"
   | "sports"
   | "culture"
   | "general";
@@ -29,8 +33,15 @@ export interface Article {
   language: ArticleLanguage;
   /** Editorial topic; articles stored before topics existed may lack it. */
   topic?: ArticleTopic;
-  /** Thumbnail URL from the source's feed, when one was provided. */
+  /** Classifier version that assigned `topic` (see CLASSIFIER_VERSION). */
+  topicVersion?: number;
+  /** Thumbnail URL from the source's feed, or backfilled from OpenGraph. */
   image?: string;
+  /**
+   * Set once the OpenGraph lookup has been attempted, so a story whose page
+   * has no usable image is not re-fetched on every subsequent run.
+   */
+  imageChecked?: boolean;
   /** True when the story is a video report (e.g. a YouTube channel item). */
   isVideo?: boolean;
   /** Admin moderation flags — preserved across pipeline re-runs. */

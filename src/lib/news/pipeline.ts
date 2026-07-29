@@ -3,6 +3,8 @@ import { fetchFeed } from "./fetcher";
 import { scrapeHeadlines } from "./scraper";
 import { normalizeItem } from "./normalize";
 import { dedupeArticles } from "./dedupe";
+import { backfillImages } from "./og-image";
+import { CLASSIFIER_VERSION, classifyTopic } from "./topics";
 import { getArticleStore, type ArticleStore } from "./store";
 import type {
   Article,
@@ -130,6 +132,29 @@ export async function runNewsPipeline(
     if (!update) continue;
     if (!article.image && update.image) article.image = update.image;
     if (!article.topic && update.topic) article.topic = update.topic;
+  }
+
+  // Re-file anything classified by an older vocabulary. Without this a
+  // classifier fix would only ever affect newly-arriving stories, leaving
+  // the archive mis-filed forever.
+  let reclassified = 0;
+  for (const article of existing) {
+    if (article.topicVersion === CLASSIFIER_VERSION) continue;
+    const topic = classifyTopic(`${article.title} ${article.summary}`);
+    if (article.topic !== topic) reclassified++;
+    article.topic = topic;
+    article.topicVersion = CLASSIFIER_VERSION;
+  }
+  if (reclassified > 0) {
+    console.log(`[news] re-filed ${reclassified} article(s) under v${CLASSIFIER_VERSION}`);
+  }
+
+  // Most Somali feeds carry no image; look up the article page's OpenGraph
+  // tag for the ones that arrived without one. Capped per run, failures are
+  // silent, and resolved images persist so this cost does not repeat.
+  const imagesFilled = await backfillImages([...fresh, ...existing]);
+  if (imagesFilled > 0) {
+    console.log(`[news] backfilled ${imagesFilled} image(s) from OpenGraph`);
   }
 
   await store.replaceAll([...existing, ...fresh]);
