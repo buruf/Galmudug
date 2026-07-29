@@ -89,12 +89,26 @@ function inlineImage(html: string): string {
   return /^https?:\/\//.test(src) ? src : "";
 }
 
+/**
+ * YouTube (and some other Atom feeds) nest media under <media:group> rather
+ * than putting media:* directly on the entry.
+ */
+function mediaGroup(item: Record<string, unknown>): Record<string, unknown> {
+  const group = item["media:group"];
+  return group && typeof group === "object"
+    ? (group as Record<string, unknown>)
+    : {};
+}
+
 /** Best-effort image for one feed item; empty string when none found. */
 function itemImage(item: Record<string, unknown>, html: string): string | undefined {
+  const group = mediaGroup(item);
   const url =
     mediaUrl(item.enclosure) ||
     mediaUrl(item["media:content"]) ||
     mediaUrl(item["media:thumbnail"]) ||
+    mediaUrl(group["media:thumbnail"]) ||
+    mediaUrl(group["media:content"]) ||
     inlineImage(html);
   return url || undefined;
 }
@@ -125,11 +139,15 @@ export function parseFeed(xml: string): RawItem[] {
   const atomEntries = asArray(doc?.feed?.entry);
   if (atomEntries.length > 0) {
     return atomEntries.map((entry: Record<string, unknown>) => {
+      // YouTube puts the blurb in media:group/media:description and leaves
+      // summary/content empty.
+      const groupDescription = textOf(mediaGroup(entry)["media:description"]);
       const rawHtml = `${textOf(entry.summary)} ${textOf(entry.content)}`;
       return {
         title: textOf(entry.title),
         link: atomLink(entry.link),
-        description: textOf(entry.summary) || textOf(entry.content),
+        description:
+          textOf(entry.summary) || textOf(entry.content) || groupDescription,
         publishedAt:
           textOf(entry.published) || textOf(entry.updated) || undefined,
         image: itemImage(entry, rawHtml),

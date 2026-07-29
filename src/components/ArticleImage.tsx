@@ -12,10 +12,13 @@ export default function ArticleImage({
   sourceName,
   className = "",
   fallback = "banner",
+  isVideo = false,
 }: {
   src?: string;
   sourceName: string;
   className?: string;
+  /** Overlays a play glyph, marking the story as a video report. */
+  isVideo?: boolean;
   /**
    * What to show when there is no image (or it fails to load):
    * "banner" = the Galmudug News watermark; "plain" = nothing, letting the
@@ -49,6 +52,19 @@ export default function ArticleImage({
       ) : fallback === "banner" ? (
         <Placeholder />
       ) : null}
+
+      {isVideo && (
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-black/55 ring-1 ring-white/40 backdrop-blur-[1px]">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </span>
+        </span>
+      )}
     </div>
   );
 }

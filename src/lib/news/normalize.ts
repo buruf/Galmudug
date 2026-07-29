@@ -101,6 +101,7 @@ export function normalizeItem(
     language: detectLanguage(text, source.language),
     topic: classifyTopic(text),
     image: raw.image,
+    ...(/(?:youtube\.com|youtu\.be)/i.test(url) ? { isVideo: true } : {}),
     hidden: false,
     pinned: false,
   };

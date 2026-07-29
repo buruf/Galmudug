@@ -51,6 +51,40 @@ describe("parseFeed", () => {
     expect(() => parseFeed("<html><body>not a feed</body></html>")).toThrow();
   });
 
+  it("parses YouTube channel feeds, unwrapping media:group", () => {
+    const items = parseFeed(fixture("youtube.xml"));
+    expect(items).toHaveLength(1);
+    expect(items[0].link).toBe("https://www.youtube.com/watch?v=edwRM9ZKxg0");
+    // Description and thumbnail live inside <media:group>, not on the entry.
+    expect(items[0].description).toContain("Xarardheere");
+    expect(items[0].image).toBe(
+      "https://i2.ytimg.com/vi/edwRM9ZKxg0/hqdefault.jpg"
+    );
+    // The video's own date, not the channel's 2014 creation date.
+    expect(items[0].publishedAt).toBe("2026-07-27T06:33:04+00:00");
+  });
+
+  it("flags YouTube stories as video and keeps others unflagged", () => {
+    const ytSource = {
+      id: "goobjoog-tv",
+      name: "Goobjoog TV",
+      homepage: "https://www.youtube.com/channel/UCKbzgTa3o3rSh4KiD5BX6Hg",
+      feedUrl:
+        "https://www.youtube.com/feeds/videos.xml?channel_id=UCKbzgTa3o3rSh4KiD5BX6Hg",
+      language: "so" as const,
+    };
+    const video = normalizeItem(parseFeed(fixture("youtube.xml"))[0], ytSource);
+    expect(video?.isVideo).toBe(true);
+    expect(video?.category).toBe("galmudug");
+
+    const article = normalizeItem(parseFeed(fixture("rss2.xml"))[0], {
+      ...ytSource,
+      id: "plain",
+      feedUrl: "https://example-news.so/feed",
+    });
+    expect(article?.isVideo).toBeUndefined();
+  });
+
   it("extracts item images from enclosures and inline <img> tags", () => {
     const items = parseFeed(fixture("rss2.xml"));
     expect(items[0].image).toBe("https://example-news.so/img/hospital.jpg");

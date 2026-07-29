@@ -31,6 +31,8 @@ export interface Article {
   topic?: ArticleTopic;
   /** Thumbnail URL from the source's feed, when one was provided. */
   image?: string;
+  /** True when the story is a video report (e.g. a YouTube channel item). */
+  isVideo?: boolean;
   /** Admin moderation flags — preserved across pipeline re-runs. */
   hidden: boolean;
   pinned: boolean;

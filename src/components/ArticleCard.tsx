@@ -112,6 +112,7 @@ export default function ArticleCard({
               src={article.image}
               sourceName={article.sourceName}
               fallback="plain"
+              isVideo={article.isVideo}
               className="absolute inset-0 h-full w-full"
             />
             <div
@@ -187,6 +188,7 @@ export default function ArticleCard({
         <ArticleImage
           src={article.image}
           sourceName={article.sourceName}
+          isVideo={article.isVideo}
           className="w-28 flex-none self-stretch sm:w-32"
         />
         <div className="min-w-0 p-3">
@@ -218,6 +220,7 @@ export default function ArticleCard({
       <ArticleImage
         src={article.image}
         sourceName={article.sourceName}
+        isVideo={article.isVideo}
         className="aspect-[16/9] w-full rounded-lg"
       />
       <Meta article={article} locale={locale} dict={dict} className="mt-2.5 text-xs" />

@@ -155,6 +155,52 @@ export const NEWS_SOURCES: NewsSource[] = [
       linkSelector: "article a, h2 a, h3 a",
     },
   },
+  // ---------------------------------------------------------------------
+  // Video sources. YouTube publishes a per-channel Atom feed at
+  //   https://www.youtube.com/feeds/videos.xml?channel_id=<UC...>
+  // (15 most recent uploads, with media:thumbnail + media:description).
+  //
+  // These matter because a lot of Galmudug reporting — campaign rallies,
+  // district events, port works — is filmed and uploaded but never written
+  // up as an article. Items are tagged isVideo via their youtube.com URL.
+  //
+  // To find a channel_id: open the channel page and read the "channelId"
+  // value in its HTML. Only add channels that still upload; several official
+  // Galmudug channels are dormant (Galmudug State TV last posted in 2024).
+  // ---------------------------------------------------------------------
+  {
+    id: "goobjoog-tv",
+    name: "Goobjoog TV",
+    homepage: "https://www.youtube.com/channel/UCKbzgTa3o3rSh4KiD5BX6Hg",
+    feedUrl:
+      "https://www.youtube.com/feeds/videos.xml?channel_id=UCKbzgTa3o3rSh4KiD5BX6Hg",
+    language: "so",
+  },
+  {
+    id: "sntv-tv",
+    name: "SNTV (video)",
+    homepage: "https://www.youtube.com/channel/UCi5fZhV7tPitSjnhEHJirGA",
+    feedUrl:
+      "https://www.youtube.com/feeds/videos.xml?channel_id=UCi5fZhV7tPitSjnhEHJirGA",
+    language: "so",
+  },
+  {
+    id: "dalsan-tv",
+    name: "Dalsan TV",
+    homepage: "https://www.youtube.com/channel/UCqwifYpVBdo91WFD_ubnGGQ",
+    feedUrl:
+      "https://www.youtube.com/feeds/videos.xml?channel_id=UCqwifYpVBdo91WFD_ubnGGQ",
+    language: "so",
+  },
+  {
+    id: "bbc-somali-tv",
+    name: "BBC Somali (video)",
+    homepage: "https://www.youtube.com/channel/UC_QuRsbRQpaC4iS8WlxW0NA",
+    feedUrl:
+      "https://www.youtube.com/feeds/videos.xml?channel_id=UC_QuRsbRQpaC4iS8WlxW0NA",
+    language: "so",
+  },
+
   // Official Galmudug institutions: everything they publish is regional news,
   // so classification is bypassed via forceCategory.
   {

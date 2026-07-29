@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015"
+      xmlns:media="http://search.yahoo.com/mrss/"
+      xmlns="http://www.w3.org/2005/Atom">
+  <link rel="alternate" href="https://www.youtube.com/channel/UCKbzgTa3o3rSh4KiD5BX6Hg"/>
+  <id>yt:channel:UCKbzgTa3o3rSh4KiD5BX6Hg</id>
+  <title>Goobjoog</title>
+  <!-- Channel creation date: must NOT be mistaken for a video date. -->
+  <published>2014-08-13T09:12:00+00:00</published>
+  <entry>
+    <id>yt:video:edwRM9ZKxg0</id>
+    <yt:videoId>edwRM9ZKxg0</yt:videoId>
+    <title>Waxgaradka degmada Xarardheere oo ka codsaday musharrax hoggaamiyaha Galmudug</title>
+    <link rel="alternate" href="https://www.youtube.com/watch?v=edwRM9ZKxg0"/>
+    <author><name>Goobjoog</name></author>
+    <published>2026-07-27T06:33:04+00:00</published>
+    <updated>2026-07-28T06:13:49+00:00</updated>
+    <media:group>
+      <media:title>Waxgaradka degmada Xarardheere oo ka codsaday musharrax</media:title>
+      <media:content url="https://www.youtube.com/v/edwRM9ZKxg0?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+      <media:thumbnail url="https://i2.ytimg.com/vi/edwRM9ZKxg0/hqdefault.jpg" width="480" height="360"/>
+      <media:description>Waxgaradka degmada Xarardheere oo ka codsaday musharrax hoggaamiyaha Galmudug in uu wax ka qabto baahiyaha ka jira degmada.</media:description>
+    </media:group>
+  </entry>
+</feed>

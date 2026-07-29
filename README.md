@@ -100,6 +100,32 @@ Behaviour guarantees:
 | Caasimada Online | so | RSS | Heavy national + Galmudug politics coverage |
 | Shabelle Media | so | RSS | Publishes in both Somali and English |
 | Puntland Post | so | RSS | Covers Gaalkacyo / northern Mudug — Galmudug stories Mogadishu outlets miss |
+| Goobjoog TV | so | YouTube Atom | Video reports; carries district-level campaign coverage |
+| SNTV (video) | so | YouTube Atom | Video reports |
+| Dalsan TV | so | YouTube Atom | Video reports |
+| BBC Somali (video) | so | YouTube Atom | Video reports |
+
+### Video sources (YouTube)
+
+A lot of Galmudug reporting — campaign rallies, district events, port works —
+is filmed and uploaded but never written up as an article. YouTube publishes a
+per-channel Atom feed, so those uploads can be aggregated like any other feed:
+
+```
+https://www.youtube.com/feeds/videos.xml?channel_id=<UC...>
+```
+
+It returns the channel's 15 most recent uploads with `media:thumbnail` and
+`media:description` (both nested inside `media:group`, which `fetcher.ts`
+unwraps). Items whose URL is on `youtube.com`/`youtu.be` are marked
+`isVideo`, which renders a play badge over the thumbnail.
+
+To add a channel: open the channel page, read the `channelId` value out of its
+HTML, and add an entry with that feed URL. Check the newest **entry** date
+before adding — the feed's top-level `<published>` is the channel's creation
+date, not its latest upload. Several official Galmudug channels look active but
+are dormant (Galmudug State TV last uploaded in 2024, GALMUDUG TV in 2017), so
+they are deliberately not included.
 | Galmudug State House | so | RSS | `forceCategory: galmudug` — all stories are regional. Publishes rarely (months between posts) |
 | Cadaado District | so | RSS | `forceCategory: galmudug` — all stories are regional. Publishes rarely |
 | Hobyo Port | en | scrape only | No RSS at all (`feedUrl` omitted); scrapes `/news`; `forceCategory: galmudug`. Publishes rarely |
