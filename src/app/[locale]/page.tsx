@@ -204,7 +204,11 @@ export default async function HomePage({
               ))}
             </div>
 
-            <aside className="flex flex-col gap-6 lg:sticky lg:top-24">
+            {/* Not sticky: Watch + Songs together are taller than the
+                viewport, so pinning the column made the lower widget
+                unreachable. Scrolling with the article column keeps both
+                readable. */}
+            <aside className="flex flex-col gap-6">
               <VideoRail videos={videos} locale={locale} dict={dict} />
               <SongsRail locale={locale} dict={dict} />
             </aside>
