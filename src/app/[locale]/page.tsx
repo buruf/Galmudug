@@ -5,6 +5,7 @@ import ArticleCard from "@/components/ArticleCard";
 import FeatureSlider from "@/components/FeatureSlider";
 import NewsTicker from "@/components/NewsTicker";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import VideoRail from "@/components/VideoRail";
 import OpinionForm from "@/components/OpinionForm";
 import { SourceAttribution } from "@/components/NewsFeed";
 import WeaveDivider from "@/components/WeaveDivider";
@@ -66,7 +67,10 @@ export default async function HomePage({
   const locale: Locale = params.locale;
   const dict: Dictionary = getDictionary(locale);
 
-  const all = await getAllVisible(getArticleStore(), 120);
+  const everything = await getAllVisible(getArticleStore(), 140);
+  // Videos get their own sidebar widget, so keep them out of the article flow.
+  const videos = everything.filter((a) => a.isVideo).slice(0, 6);
+  const all = everything.filter((a) => !a.isVideo);
   const used = new Set<string>();
   const take = (pool: Article[], n: number): Article[] => {
     const picked: Article[] = [];
@@ -140,37 +144,46 @@ export default async function HomePage({
             </aside>
           </section>
 
-          {/* Galmudug regional block */}
-          {galmudug.length > 0 && (
-            <section className="mt-12">
-              <SectionHeading
-                title={dict.news.galmudugTitle}
-                href={`/${locale}/news`}
-                linkLabel={dict.home.allNews}
-              />
-              <div className="mt-5 grid gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-                {galmudug.map((a) => (
-                  <ArticleCard key={a.id} article={a} locale={locale} dict={dict} />
-                ))}
-              </div>
-            </section>
-          )}
+          {/* Main column + video sidebar */}
+          <div className="mt-12 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
+            <div className="min-w-0">
+              {/* Galmudug regional block */}
+              {galmudug.length > 0 && (
+                <section>
+                  <SectionHeading
+                    title={dict.news.galmudugTitle}
+                    href={`/${locale}/news`}
+                    linkLabel={dict.home.allNews}
+                  />
+                  <div className="mt-5 grid gap-x-5 gap-y-8 sm:grid-cols-2">
+                    {galmudug.map((a) => (
+                      <ArticleCard key={a.id} article={a} locale={locale} dict={dict} />
+                    ))}
+                  </div>
+                </section>
+              )}
 
-          {/* Topic blocks */}
-          {topicSections.map(({ topic, articles }) => (
-            <section key={topic} className="mt-12">
-              <SectionHeading
-                title={dict.topics[topic]}
-                href={`/${locale}/news/topic/${topic}`}
-                linkLabel={dict.home.allNews}
-              />
-              <div className="mt-5 grid gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-                {articles.map((a) => (
-                  <ArticleCard key={a.id} article={a} locale={locale} dict={dict} />
-                ))}
-              </div>
-            </section>
-          ))}
+              {/* Topic blocks */}
+              {topicSections.map(({ topic, articles }) => (
+                <section key={topic} className="mt-12">
+                  <SectionHeading
+                    title={dict.topics[topic]}
+                    href={`/${locale}/news/topic/${topic}`}
+                    linkLabel={dict.home.allNews}
+                  />
+                  <div className="mt-5 grid gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+                    {articles.map((a) => (
+                      <ArticleCard key={a.id} article={a} locale={locale} dict={dict} />
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+
+            <aside className="lg:sticky lg:top-24">
+              <VideoRail videos={videos} locale={locale} dict={dict} />
+            </aside>
+          </div>
 
           {/* Latest wire */}
           {latest.length > 0 && (

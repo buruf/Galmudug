@@ -12,6 +12,7 @@ import {
 import { classifyCategory, detectLanguage, isGalmudugStory } from "@/lib/news/classify";
 import { classifyTopic } from "@/lib/news/topics";
 import { dedupeArticles, jaccard, titleTokens } from "@/lib/news/dedupe";
+import { runNewsPipeline } from "@/lib/news/pipeline";
 import type { Article, NewsSource } from "@/lib/news/types";
 
 const fixture = (name: string) =>
@@ -118,6 +119,47 @@ describe("topics", () => {
 
   it("falls back to general", () => {
     expect(classifyTopic("Roobab mahiigaan ah oo ka da'ay deegaanno")).toBe("general");
+  });
+
+  // Regressions from real mis-filed stories: Somali words whose everyday
+  // meaning collides with a topic vocabulary used to hijack the whole story,
+  // because a single keyword match won outright.
+  it("does not read 'kooxda' (armed group) as a sports team", () => {
+    expect(
+      classifyTopic("Ciidamada oo howlgal ka fuliyay, kooxda Al-Shabaab oo laga saaray")
+    ).toBe("security");
+  });
+
+  it("does not read 'garoonka diyaaradaha' (airport) as a stadium", () => {
+    expect(
+      classifyTopic("Laamiga garoonka diyaaradaha Boosaaso oo hanaan casri ah loo dhisayo")
+    ).not.toBe("sports");
+  });
+
+  it("does not file ministry news under culture for the word 'Culture'", () => {
+    expect(
+      classifyTopic(
+        "Information Minister visits Mogadishu Port, Ministry of Information, Culture and Tourism said"
+      )
+    ).not.toBe("culture");
+  });
+
+  it("still recognises real sports and culture stories", () => {
+    expect(classifyTopic("Kooxda Juventus oo tartanka kubadda cagta ku guuleysatay")).toBe("sports");
+    expect(
+      classifyTopic("Abwaan caan ah oo gabay ka tiriyay suugaanta iyo dhaqanka Soomaalida")
+    ).toBe("culture");
+  });
+
+  it("matches inflected Somali verbs for attacks", () => {
+    expect(classifyTopic("Xuutiyiinta oo weeraray maraakiib shidaal ah")).toBe("security");
+  });
+
+  it("requires more than one weak signal to leave general", () => {
+    // "port" alone is weak: a passing mention must not file a story as business.
+    expect(classifyTopic("Delegation visits the port before returning home")).toBe(
+      "general"
+    );
   });
 });
 
@@ -283,5 +325,41 @@ describe("dedupe", () => {
     const a = makeArticle({ title: "New school opens in Adado town" });
     const b = makeArticle({ title: "Fishing cooperative launched in Hobyo" });
     expect(dedupeArticles([a, b])).toHaveLength(2);
+  });
+});
+
+describe("pipeline source retirement", () => {
+  it("drops stored articles whose source is no longer configured", async () => {
+    const keep = {
+      id: "keep-1",
+      title: "Story from a source we still read",
+      summary: "",
+      url: "https://goobjoog.com/a",
+      sourceId: "goobjoog",
+      sourceName: "Goobjoog News",
+      publishedAt: "2026-07-20T00:00:00.000Z",
+      fetchedAt: "2026-07-20T00:00:00.000Z",
+      category: "somalia" as const,
+      language: "so" as const,
+      hidden: false,
+      pinned: false,
+    };
+    const retired = { ...keep, id: "retired-1", sourceId: "voa-somali" };
+
+    let saved: typeof keep[] = [];
+    const store = {
+      getAll: async () => (saved.length ? saved : [keep, retired]),
+      replaceAll: async (articles: typeof keep[]) => {
+        saved = articles;
+      },
+      setFlags: async () => null,
+    };
+
+    // No sources configured to fetch: only the retirement pass runs.
+    await runNewsPipeline(store, [
+      { id: "goobjoog", name: "Goobjoog News", homepage: "https://goobjoog.com", language: "so" },
+    ]);
+
+    expect(saved.map((a) => a.id)).toEqual(["keep-1"]);
   });
 });

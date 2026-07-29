@@ -80,6 +80,9 @@ const en = {
     tickerBack: "Previous headlines",
     tickerForward: "Next headlines",
     topStories: "Top stories",
+    videosHeading: "Watch",
+    videosIntro: "Video reports from Somali broadcasters.",
+    videoBadge: "Video",
     latestHeading: "Latest",
     topicsLabel: "News topics",
     topicIntro:

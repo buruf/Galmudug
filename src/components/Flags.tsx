@@ -79,24 +79,37 @@ export function FlagStrip({
   showLabel?: boolean;
 }) {
   const t = dict.region.symbols;
+  // Each flag is its own shortcut into the matching feed: Galmudug's flag
+  // opens Galmudug news, Somalia's opens national news.
+  const flagClass =
+    "block w-8 shrink-0 overflow-hidden rounded-[3px] ring-1 ring-black/10 transition-transform hover:scale-105 focus-visible:scale-105";
   return (
-    <a
-      href={`/${locale}/region#flags-heading`}
-      className="group inline-flex items-center gap-1.5"
-      aria-label={`${t.galmudugCaption} · ${t.somaliaCaption}`}
-    >
-      <span className="block w-8 shrink-0 overflow-hidden rounded-[3px] ring-1 ring-black/10">
+    <span className="inline-flex items-center gap-1.5">
+      <a
+        href={`/${locale}/news`}
+        className={flagClass}
+        title={dict.news.galmudugTitle}
+        aria-label={dict.news.galmudugTitle}
+      >
         <GalmudugFlag label={t.galmudugAlt} />
-      </span>
-      <span className="block w-8 shrink-0 overflow-hidden rounded-[3px] ring-1 ring-black/10">
+      </a>
+      <a
+        href={`/${locale}/news/somalia`}
+        className={flagClass}
+        title={dict.news.somaliaTitle}
+        aria-label={dict.news.somaliaTitle}
+      >
         <SomaliaFlag label={t.somaliaAlt} />
-      </span>
+      </a>
       {showLabel && (
-        <span className="ml-0.5 text-[11px] font-medium uppercase tracking-wide text-ink/50 group-hover:text-ocean-700">
+        <a
+          href={`/${locale}/region#flags-heading`}
+          className="ml-0.5 text-[11px] font-medium uppercase tracking-wide text-ink/50 hover:text-ocean-700"
+        >
           {t.title}
-        </span>
+        </a>
       )}
-    </a>
+    </span>
   );
 }
 

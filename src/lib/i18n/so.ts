@@ -82,6 +82,9 @@ const so: Dictionary = {
     tickerBack: "Cinwaannadii hore",
     tickerForward: "Cinwaannada xiga",
     topStories: "Wararka ugu waaweyn",
+    videosHeading: "Daawo",
+    videosIntro: "Warbixinno muuqaal ah oo ka yimid warbaahinta Soomaalida.",
+    videoBadge: "Muuqaal",
     latestHeading: "Ugu dambeeyay",
     topicsLabel: "Qaybaha wararka",
     topicIntro:

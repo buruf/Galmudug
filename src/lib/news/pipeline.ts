@@ -109,7 +109,17 @@ export async function runNewsPipeline(
     }
   }
 
-  const existing = await store.getAll();
+  const stored = await store.getAll();
+
+  // Dropping a source from sources.ts should also retire its stories, rather
+  // than leaving them in the feeds until they age out of the store.
+  const knownSourceIds = new Set(sources.map((s) => s.id));
+  const existing = stored.filter((a) => knownSourceIds.has(a.sourceId));
+  const retired = stored.length - existing.length;
+  if (retired > 0) {
+    console.log(`[news] dropped ${retired} article(s) from removed sources`);
+  }
+
   const fresh = dedupeArticles(incoming, existing);
 
   // Backfill image/topic onto already-stored articles when the same story is
