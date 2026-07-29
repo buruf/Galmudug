@@ -126,6 +126,9 @@ const so: Dictionary = {
       "Bogagga wararka waxaa dhaliya nidaam otomaatig ah. Jadwal joogto ah ayuu ku akhriyaa quudinta RSS ee warbaahinta Soomaalida, wuxuu soocaa wararka lagu xuso Galmudug iyo magaalooyinkeeda, wuxuu tirtiraa kuwa is-daba-noqda, kadibna wuxuu daabacaa cinwaanka, soo-koobid gaaban, isha iyo taariikhda.",
     newsBody2:
       "Waxaan si ula kac ah u soo bandhignaa cinwaanka iyo soo-koobid gaaban oo keliya. War kastaa wuxuu kuu geeynayaa daabacaha asalka ah, kaas oo iska leh maqaalka oo dhammaystiran iyo dhammaan xuquuqdiisa. Haddii aad tahay daabace doonaya in quudintiisa laga saaro ama la saxo, nala soo xiriir — si degdeg ah ayaan wax uga qaban doonnaa.",
+    officialLinksTitle: "Xarumaha rasmiga ah ee Galmudug",
+    officialLinksBody:
+      "Haddii aad raadinayso macluumaad rasmi ah, kuwani waa xarumaha Dowlad Goboleedka Galmudug ee ay iyagu leeyihiin. Halkan waxaa loogu soo qoray si ay kuu fududaato oo keliya — shabakaddani waa madax-bannaan, mana ay maamusho midkoodna, xiriirna lama laha.",
     correctionsTitle: "Saxidda khaladaadka",
     correctionsBody:
       "Qoraallada shabakaddan waxaa qora oo ilaaliya tifaftirayaasha bogga, iyagoo ku tiirsan ilo fagaare ah. Haddii aad aragto khalad — taariikh qaldan, magac meel oo si khaldan u qoran, ama xog duugowday — waxaan si daacad ah u jecel nahay inaad noo soo sheegto.",

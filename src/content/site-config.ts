@@ -18,6 +18,45 @@ export const SOCIAL_LINKS: SocialLink[] = [
 ];
 
 /**
+ * Official Galmudug State and district channels.
+ *
+ * These are OUTBOUND references, not this site's own accounts: galmudug.com
+ * is independent and not affiliated with any government body. They are listed
+ * on the About page, under the independence notice, so readers who want
+ * official information can reach it directly. Never move these into
+ * SOCIAL_LINKS — those render as "follow us" and would imply the site is
+ * government-run.
+ */
+export interface OfficialLink {
+  label: string;
+  url: string;
+  kind: "facebook" | "website";
+}
+
+export const OFFICIAL_LINKS: OfficialLink[] = [
+  {
+    label: "Galmudug State (Facebook)",
+    url: "https://www.facebook.com/state.galmudug",
+    kind: "facebook",
+  },
+  {
+    label: "Galmudug State House",
+    url: "https://statehouse.gm.so",
+    kind: "website",
+  },
+  {
+    label: "Ministry of Information",
+    url: "https://www.moi.gm.so",
+    kind: "website",
+  },
+  {
+    label: "Cadaado District",
+    url: "https://cadaado.gm.so",
+    kind: "website",
+  },
+];
+
+/**
  * Towns cycled through by the top-bar weather chip. All are in Galmudug
  * (Galgaduud + southern Mudug); one fetch per town, cached 30 minutes, and
  * the chip rotates between them client-side.

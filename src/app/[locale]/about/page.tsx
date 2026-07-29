@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import WeaveDivider from "@/components/WeaveDivider";
+import { OFFICIAL_LINKS } from "@/content/site-config";
 import { NEWS_SOURCES } from "@/lib/news/sources";
 import { getDictionary } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n/config";
@@ -60,6 +61,43 @@ export default function AboutPage({ params }: { params: { locale: string } }) {
         <p className="mt-3 leading-relaxed text-ink/90">
           {dict.about.independenceBody2}
         </p>
+
+        {/* Outbound links to the state's own channels. Deliberately inside
+            the independence notice so the distinction is unmissable. */}
+        <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-ink/60">
+          {dict.about.officialLinksTitle}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-ink/70">
+          {dict.about.officialLinksBody}
+        </p>
+        <ul className="mt-3 flex flex-wrap gap-2">
+          {OFFICIAL_LINKS.map((link) => (
+            <li key={link.url}>
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="inline-flex items-center gap-1.5 rounded-md border border-sand-300 bg-white px-3 py-1.5 text-sm font-medium text-ocean-800 transition-colors hover:border-ocean-400 hover:text-ocean-600"
+              >
+                {link.kind === "facebook" && (
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M9.5 3H12V0H9.5C7 0 5 2 5 4.5V7H2v3h3v6h3v-6h3l.5-3H8V4.5C8 3.7 8.7 3 9.5 3Z" />
+                  </svg>
+                )}
+                {link.label}
+                <span aria-hidden="true" className="text-ink/40">
+                  ↗
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <WeaveDivider className="mt-8 text-sand-300" />
