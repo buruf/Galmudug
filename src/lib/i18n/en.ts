@@ -186,6 +186,38 @@ const en = {
     consent:
       "We use your email only for this newsletter. Unsubscribe anytime: admin@galmudug.com.",
   },
+  ads: { label: "Advertisement" },
+  privacy: {
+    title: "Privacy policy",
+    metaDescription:
+      "How Galmudug.com handles your data: cookies, advertising, analytics, and the messages you send us.",
+    updated: "Last updated",
+    updatedValue: "29 July 2026",
+    intro:
+      "Galmudug.com is a privately owned, independent website. This page explains, in plain language, what happens to your information when you visit.",
+    collectTitle: "What we collect",
+    collectBody:
+      "We do not ask you to create an account and we do not track you across other websites. Two things are collected only when you choose to give them: the message, name and email you submit through the opinion form, and your email address if you sign up for the newsletter. That is all — we never sell, rent, or share these with anyone.",
+    analyticsTitle: "Analytics",
+    analyticsBody:
+      "We use Vercel Web Analytics to count page views. It is privacy-friendly by design: it does not use cookies and does not build a profile of you or follow you across sites.",
+    adsTitle: "Advertising",
+    adsBody:
+      "This site may display advertisements served by Google AdSense. Google and its partners use cookies to serve ads based on your prior visits to this or other websites. You can opt out of personalised advertising in Google's Ads Settings, and you can review how Google uses information from sites that use its services in its own policy.",
+    adsLink: "Google Ads Settings",
+    adsPartnerLink: "How Google uses information from partner sites",
+    cookiesTitle: "Cookies",
+    cookiesBody:
+      "The site itself sets one small cookie to remember whether you chose English or Somali, and a temporary sign-in cookie for administrators. Advertising cookies, if ads are shown, are set by Google rather than by us. You can delete or block cookies in your browser at any time; the language cookie is the only one the site needs to work well.",
+    newsTitle: "News content",
+    newsBody:
+      "News headlines and summaries are aggregated from other publishers and always link back to them. Visiting those sites places you under their own privacy policies, not ours.",
+    rightsTitle: "Your choices",
+    rightsBody:
+      "You can ask us at any time to delete a message you sent, or to remove your address from the newsletter. Write to us and we will do it promptly — no explanation required.",
+    contactTitle: "Contact",
+    contactBody: "Questions about privacy: admin@galmudug.com",
+  },
   opinion: {
     title: "Your opinion",
     intro:

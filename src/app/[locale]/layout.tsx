@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import { ADSENSE_CLIENT, adsEnabled } from "@/content/site-config";
 import Header from "@/components/Header";
 import TopBar from "@/components/TopBar";
 import Footer from "@/components/Footer";
@@ -55,6 +57,17 @@ export default function LocaleLayout({
         </main>
         <Footer locale={locale} dict={dict} />
         <Analytics />
+        {/* AdSense loader — only emitted once a publisher id is configured,
+            so unapproved/ad-free deployments ship no third-party script. */}
+        {adsEnabled() && (
+          <Script
+            id="adsbygoogle-init"
+            async
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+          />
+        )}
       </body>
     </html>
   );

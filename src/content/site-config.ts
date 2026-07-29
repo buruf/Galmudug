@@ -18,6 +18,30 @@ export const SOCIAL_LINKS: SocialLink[] = [
 ];
 
 /**
+ * Google AdSense publisher id, e.g. "ca-pub-1234567890123456".
+ *
+ * Set NEXT_PUBLIC_ADSENSE_CLIENT in the Vercel project to switch ads on.
+ * While it is unset, no AdSense script loads and every <AdSlot> renders
+ * nothing — so the site stays clean (and fast) until you are approved.
+ */
+export const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "";
+
+/**
+ * Ad unit slot ids created in the AdSense dashboard. Leave a value empty to
+ * hide that placement. Names map to where they appear on the site.
+ */
+export const AD_SLOTS = {
+  /** Below the lead story / above the main article grid. */
+  homeTop: process.env.NEXT_PUBLIC_AD_SLOT_HOME_TOP ?? "",
+  /** In the homepage right-hand column, under the top stories. */
+  sidebar: process.env.NEXT_PUBLIC_AD_SLOT_SIDEBAR ?? "",
+  /** Between article blocks on the news/topic feeds. */
+  feed: process.env.NEXT_PUBLIC_AD_SLOT_FEED ?? "",
+};
+
+export const adsEnabled = (): boolean => ADSENSE_CLIENT.startsWith("ca-pub-");
+
+/**
  * Official Galmudug State and district channels.
  *
  * These are OUTBOUND references, not this site's own accounts: galmudug.com

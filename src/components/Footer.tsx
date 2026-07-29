@@ -16,6 +16,7 @@ export default function Footer({
     { href: `/${locale}/districts`, label: dict.nav.districts },
     { href: `/${locale}/news`, label: dict.nav.news },
     { href: `/${locale}/about`, label: dict.nav.about },
+    { href: `/${locale}/privacy`, label: dict.privacy.title },
   ];
 
   return (

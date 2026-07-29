@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AdSlot from "@/components/AdSlot";
 import ArticleCard from "@/components/ArticleCard";
 import FeatureSlider from "@/components/FeatureSlider";
 import NewsTicker from "@/components/NewsTicker";
@@ -9,6 +10,7 @@ import VideoRail from "@/components/VideoRail";
 import OpinionForm from "@/components/OpinionForm";
 import { SourceAttribution } from "@/components/NewsFeed";
 import WeaveDivider from "@/components/WeaveDivider";
+import { AD_SLOTS } from "@/content/site-config";
 import { DISTRICTS } from "@/content/districts";
 import { getDictionary, type Dictionary } from "@/lib/i18n";
 import { isLocale, type Locale } from "@/lib/i18n/config";
@@ -155,8 +157,15 @@ export default async function HomePage({
                   />
                 ))}
               </div>
+              <AdSlot
+                slot={AD_SLOTS.sidebar}
+                label={dict.ads.label}
+                format="rectangle"
+              />
             </aside>
           </section>
+
+          <AdSlot slot={AD_SLOTS.homeTop} label={dict.ads.label} format="horizontal" />
 
           {/* Main column + video sidebar */}
           <div className="mt-12 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">

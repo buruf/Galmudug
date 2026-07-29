@@ -188,6 +188,38 @@ const so: Dictionary = {
     consent:
       "Iimaylkaaga waxaan u isticmaalnaa keliya wargeyskan. Ka-bixid mar kasta: admin@galmudug.com.",
   },
+  ads: { label: "Xayeysiis" },
+  privacy: {
+    title: "Siyaasadda asturnaanta",
+    metaDescription:
+      "Sida Galmudug.com u maareeyo xogtaada: cookies, xayeysiisyada, tirakoobka booqashooyinka, iyo farriimaha aad noo soo dirto.",
+    updated: "Markii ugu dambeysay ee la cusboonaysiiyay",
+    updatedValue: "29 Luulyo 2026",
+    intro:
+      "Galmudug.com waa shabakad gaar loo leeyahay oo madax-bannaan. Boggan wuxuu si cad u sharxayaa waxa ku dhaca xogtaada marka aad na soo booqato.",
+    collectTitle: "Xogta aan ururino",
+    collectBody:
+      "Kuma waydiino inaad akoon sameysato, kumana raadraacno shabakado kale. Laba shay oo keliya ayaa la ururiyaa marka aad adigu doorato inaad na siiso: farriinta, magaca iyo iimaylka aad ka soo gudbiso foomka ra'yiga, iyo cinwaanka iimaylkaaga haddii aad isku diiwaan geliso warsidaha. Intaas oo keliya — waligeen ma iibino, ma kirayno, mana la wadaagno cid kale.",
+    analyticsTitle: "Tirakoobka booqashooyinka",
+    analyticsBody:
+      "Waxaan isticmaalnaa Vercel Web Analytics si aan u tirinno booqashooyinka bogagga. Waa mid asturnaanta ilaalisa: ma isticmaasho cookies, kumana sameeyo astaan ku saabsan adiga, kumana raacdo shabakado kale.",
+    adsTitle: "Xayeysiisyada",
+    adsBody:
+      "Shabakaddu waxay soo bandhigi kartaa xayeysiisyo uu adeegsado Google AdSense. Google iyo shurakadeedu waxay isticmaalaan cookies si ay xayeysiisyada ugu habeeyaan booqashooyinkaagii hore ee shabakaddan ama shabakado kale. Waad ka bixi kartaa xayeysiisyada la habeeyay adigoo isticmaalaya Goobaha Xayeysiiska ee Google, waxaadna ka akhrisan kartaa sida Google u isticmaalo xogta shabakadaha adeegsada adeegyadiisa.",
+    adsLink: "Goobaha Xayeysiiska ee Google",
+    adsPartnerLink: "Sida Google u isticmaalo xogta shabakadaha la shaqeeya",
+    cookiesTitle: "Cookies",
+    cookiesBody:
+      "Shabakaddu waxay dhigtaa hal cookie oo yar oo lagu xasuusto luqadda aad dooratay (Ingiriisi ama Soomaali), iyo cookie ku-meel-gaar ah oo gelitaanka maamulaha. Cookies-ka xayeysiiska, haddii xayeysiis la soo bandhigo, waxaa dhiga Google ee ma aha annaga. Waqti kasta ayaad browser-kaaga kaga tirtiri kartaa ama ka joojin kartaa; cookie-ga luqadda oo keliya ayaa shabakadda u baahan tahay si ay si fiican u shaqeyso.",
+    newsTitle: "Wararka",
+    newsBody:
+      "Cinwaannada iyo soo-koobitaannada waxaa laga soo ururiyaa daabacayaal kale, mar walbana waxay ku xiran yihiin isha asalka ah. Marka aad shabakadahaas booqato, waxaad hoos timaaddaa siyaasadaha asturnaanta ee iyaga, ee ma aha kuwayaga.",
+    rightsTitle: "Doorashooyinkaaga",
+    rightsBody:
+      "Waqti kasta ayaad nagu weydiisan kartaa inaan tirtirno farriin aad soo dirtay, ama aan cinwaankaaga ka saarno warsidaha. Noo soo qor, si degdeg ah ayaan u qaban doonnaa — sharraxaad looma baahna.",
+    contactTitle: "Nala soo xiriir",
+    contactBody: "Su'aalaha asturnaanta: admin@galmudug.com",
+  },
   opinion: {
     title: "Ra'yigaaga",
     intro:

@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...DISTRICTS.map((d) => ({ path: `/districts/${d.slug}`, priority: 0.7 })),
     { path: "/music", priority: 0.7 },
     { path: "/about", priority: 0.5 },
+    { path: "/privacy", priority: 0.3 },
   ];
 
   const now = new Date();
