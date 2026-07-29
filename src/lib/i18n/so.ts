@@ -173,6 +173,9 @@ const so: Dictionary = {
       "Galmudug waxay leedahay fan casri ah oo firfircoon, maalinta dowlad-goboleedka (14 Agoosto) ayaana dhalisay noocyo badan oo heeso wadani ah. Tani waa ururin heeso Galmudug caan ah — oo ay qaadeen fanaaniin sida Sakariye Kobciye, Xamdi Bilan, Ismaciil Aarka iyo Kooxda Waaberi Galmudug. Riix si aad u daawato, ama midkiiba ka fur YouTube, halkaas oo ay u taal xuquuqda abuurayaasheeda.",
     play: "Daawo muuqaalka",
     watchOnYoutube: "Ka daawo YouTube",
+    songsHeading: "Heesaha Galmudug",
+    songsIntro: "Heeso iyo muuqaallo lagu ammaanayo gobolka.",
+    allSongs: "Dhammaan heesaha",
     attribution:
       "Muuqaallada waxaa martigeliya YouTube, waxayna iska leeyihiin abuurayaasha iyo qaadayaasha. Galmudug.com wuxuu u soo bandhigayaa tixraac ahaan, mana sheeganayo xuquuq muusigga ah.",
   },

@@ -32,7 +32,8 @@ export default function Header({
     { href: `/${locale}/news/topic/culture`, label: dict.topics.culture },
     { href: `/${locale}/region`, label: dict.nav.region },
     { href: `/${locale}/districts`, label: dict.nav.districts },
-    { href: `/${locale}/music`, label: dict.nav.music },
+    // Music is intentionally not in the nav: songs live in the Songs widget
+    // alongside Watch on the homepage, which links through to /music.
     { href: `/${locale}/about`, label: dict.nav.about },
   ];
 

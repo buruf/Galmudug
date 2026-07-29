@@ -6,6 +6,7 @@ import ArticleCard from "@/components/ArticleCard";
 import FeatureSlider from "@/components/FeatureSlider";
 import NewsTicker from "@/components/NewsTicker";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import SongsRail from "@/components/SongsRail";
 import VideoRail from "@/components/VideoRail";
 import OpinionForm from "@/components/OpinionForm";
 import { SourceAttribution } from "@/components/NewsFeed";
@@ -203,8 +204,9 @@ export default async function HomePage({
               ))}
             </div>
 
-            <aside className="lg:sticky lg:top-24">
+            <aside className="flex flex-col gap-6 lg:sticky lg:top-24">
               <VideoRail videos={videos} locale={locale} dict={dict} />
+              <SongsRail locale={locale} dict={dict} />
             </aside>
           </div>
 
