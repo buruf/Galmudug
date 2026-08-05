@@ -251,6 +251,13 @@ const so: Dictionary = {
     songsCta: "Dhammaan heesaha Galmudug",
     sourceLabel: "Waxaa soo warramay",
   },
+  tiktok: {
+    title: "14 Agoosto oo TikTok ah",
+    intro:
+      "Heeso iyo muuqaallo dabaaldeg ah oo loo soo dhigay Maalinta Galmudug. Kuwani waa waxa ay abuurayaashu iyagu soo dhigeen — riix si aad u daawato, ama TikTok ka fur, halkaas oo ay u taal xuquuqdoodu.",
+    play: "Daawo muuqaalka",
+    watchOnTikTok: "Ka daawo TikTok",
+  },
   opinion: {
     title: "Ra'yigaaga",
     intro:

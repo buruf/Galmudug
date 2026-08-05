@@ -249,6 +249,13 @@ const en = {
     songsCta: "All Galmudug songs",
     sourceLabel: "Reported by",
   },
+  tiktok: {
+    title: "14 August on TikTok",
+    intro:
+      "Songs and celebration clips posted for Galmudug Day. These are creators' own posts — tap to play, or open them on TikTok, where they belong to the people who made them.",
+    play: "Play clip",
+    watchOnTikTok: "Watch on TikTok",
+  },
   opinion: {
     title: "Your opinion",
     intro:

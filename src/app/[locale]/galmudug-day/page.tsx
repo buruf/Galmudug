@@ -11,9 +11,11 @@ import {
   nextGalmudugDay,
 } from "@/content/galmudug-day";
 import { MUSIC_VIDEOS } from "@/content/music";
+import TikTokGallery from "@/components/TikTokGallery";
 import { getDictionary } from "@/lib/i18n";
 import { isLocale } from "@/lib/i18n/config";
 import { pageMetadata } from "@/lib/seo";
+import { getTikTokPreviews } from "@/lib/tiktok";
 
 // The countdown target depends on "now", so never statically cache the page.
 export const dynamic = "force-dynamic";
@@ -34,7 +36,7 @@ export function generateMetadata({
   });
 }
 
-export default function GalmudugDayPage({
+export default async function GalmudugDayPage({
   params,
 }: {
   params: { locale: string };
@@ -43,6 +45,7 @@ export default function GalmudugDayPage({
   const locale = params.locale;
   const dict = getDictionary(locale);
   const { date, anniversary, isToday } = nextGalmudugDay();
+  const tiktoks = await getTikTokPreviews();
 
   // Songs whose titles reference the day itself lead the section.
   const daySongs = MUSIC_VIDEOS.filter((v) =>
@@ -189,6 +192,24 @@ export default function GalmudugDayPage({
             {dict.galmudugDay.songsIntro}
           </p>
           <MusicGallery videos={daySongs} dict={dict} />
+        </section>
+      )}
+
+      {/* Clips circulating on TikTok for the day */}
+      {tiktoks.length > 0 && (
+        <section aria-labelledby="tiktok-clips" className="mt-12">
+          <h2
+            id="tiktok-clips"
+            className="border-b border-sand-200 pb-2 text-base font-extrabold uppercase tracking-wide text-ink sm:text-lg"
+          >
+            <span className="-mb-px inline-block border-b-[3px] border-ocean-600 pb-2">
+              {dict.tiktok.title}
+            </span>
+          </h2>
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-ink/70">
+            {dict.tiktok.intro}
+          </p>
+          <TikTokGallery clips={tiktoks} dict={dict} />
         </section>
       )}
     </div>
