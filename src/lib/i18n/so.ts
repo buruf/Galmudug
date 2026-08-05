@@ -36,8 +36,8 @@ const so: Dictionary = {
       capitalValue: "Dhuusamarreeb",
       largestCity: "Magaalada ugu weyn",
       largestCityValue: "Gaalkacyo (qaybta koonfureed)",
-      formed: "Sannadkii la aasaasay",
-      formedValue: "2015",
+      formed: "Aasaaska",
+      formedValue: "14 Agoosto 2006 (dowlad-goboleed federaal, 2015)",
       regions: "Gobollada maamulka",
       regionsValue: "Galgaduud iyo koonfurta Mudug",
       coastline: "Xeebta",
@@ -222,6 +222,34 @@ const so: Dictionary = {
       "Waqti kasta ayaad nagu weydiisan kartaa inaan tirtirno farriin aad soo dirtay, ama aan cinwaankaaga ka saarno warsidaha. Noo soo qor, si degdeg ah ayaan u qaban doonnaa — sharraxaad looma baahna.",
     contactTitle: "Nala soo xiriir",
     contactBody: "Su'aalaha asturnaanta: admin@galmudug.com",
+  },
+  galmudugDay: {
+    navLabel: "14 Agoosto",
+    title: "{n} sano oo Galmudug ah — 14 Agoosto",
+    eyebrow: "Tirinta maalinta Galmudug",
+    todayEyebrow: "Maalinta Galmudug",
+    todayTitle: "Sanad-guuradii {n}-aad ee Galmudug oo barwaaqo ah",
+    todayBody:
+      "Maanta Galmudug waxay xusaysaa sanad-guuradii aasaaskeedii 14 Agoosto 2006 — waxaana lagu dabaaldegayaa Dhuusamarreeb, degmo kasta, iyo qurbajoogta adduunka ku kala nool.",
+    countdownLabel: "Tirinta maalinta Galmudug",
+    cta: "Fiiri",
+    days: "Maalmo",
+    hours: "Saac",
+    minutes: "Daq",
+    seconds: "Il",
+    metaDescription:
+      "Maalinta Galmudug, 14 Agoosto: tirinta sanad-guurada aasaaskii Galmudug ee 2006, taariikhda dowlad-goboleedka, iyo dib-u-eegis sannadkii la soo dhaafay.",
+    intro:
+      "Galmudug waxaa la aasaasay 14 Agoosto 2006, iyadoo hoos keentay maamul keliya gobolka Galgaduud iyo koonfurta Mudug. Sannad kasta tan iyo markaas, 14 Agoosto waxaa lagu xusaa Dhuusamarreeb, degmooyinka oo dhan, iyo meel kasta oo qurbajoogtu degto. Sannadka 2026 waa markii labaatanaad.",
+    timelineTitle: "Labaatan sano, si kooban",
+    reviewTitle: "Sannadkii la soo dhaafay ee Galmudug",
+    reviewIntro:
+      "Dib u eegis ku saabsan wixii la soo warramay sannadkii la soo dhaafay. Mid kastaa wuxuu ku xiran yahay warbaahintii soo warramtay — kani waa dib-u-eegis wararka ah, ma aha diiwaan rasmi ah, Galmudug.com-na waa ka madax-bannaan yahay maamulka dowlad-goboleedka.",
+    songsTitle: "Heesaha 14 Agoosto",
+    songsIntro:
+      "Maalinta dowlad-goboleedku waxay dhalisay heeso wadani ah oo gaar ah. Kuwani waa muuqaallo ka mid ah ururinteena muusigga.",
+    songsCta: "Dhammaan heesaha Galmudug",
+    sourceLabel: "Waxaa soo warramay",
   },
   opinion: {
     title: "Ra'yigaaga",

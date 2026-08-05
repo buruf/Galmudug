@@ -4,7 +4,12 @@ import { notFound } from "next/navigation";
 import AdSlot from "@/components/AdSlot";
 import ArticleCard from "@/components/ArticleCard";
 import FeatureSlider from "@/components/FeatureSlider";
+import Countdown from "@/components/Countdown";
 import NewsTicker from "@/components/NewsTicker";
+import {
+  COUNTDOWN_WINDOW_DAYS,
+  nextGalmudugDay,
+} from "@/content/galmudug-day";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import SongsRail from "@/components/SongsRail";
 import VideoRail from "@/components/VideoRail";
@@ -117,6 +122,10 @@ export default async function HomePage({
     .filter((s) => s.articles.length >= 2);
   const latest = take(all, 8);
 
+  const galmudugDay = nextGalmudugDay();
+  const daysToGalmudugDay =
+    (galmudugDay.date.getTime() - Date.now()) / 86_400_000;
+
   return (
     <>
       <NewsTicker
@@ -124,6 +133,19 @@ export default async function HomePage({
         dict={dict}
       />
       <div className="mx-auto max-w-content px-4 py-8 sm:px-6">
+      {/* Galmudug Day countdown — appears only in the run-up and on the day. */}
+      {daysToGalmudugDay <= COUNTDOWN_WINDOW_DAYS && (
+        <div className="mb-6">
+          <Countdown
+            targetMs={galmudugDay.date.getTime()}
+            anniversary={galmudugDay.anniversary}
+            isToday={galmudugDay.isToday}
+            locale={locale}
+            dict={dict}
+          />
+        </div>
+      )}
+
       {all.length === 0 ? (
         <p className="mt-8 rounded-lg border border-sand-200 bg-white p-8 text-ink/60">
           {dict.news.empty}

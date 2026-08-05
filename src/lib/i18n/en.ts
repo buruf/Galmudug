@@ -34,8 +34,8 @@ const en = {
       capitalValue: "Dhusamareb",
       largestCity: "Largest city",
       largestCityValue: "Galkayo (southern section)",
-      formed: "State formed",
-      formedValue: "2015",
+      formed: "Founded",
+      formedValue: "14 August 2006 (federal member state, 2015)",
       regions: "Administrative regions",
       regionsValue: "Galgaduud and southern Mudug",
       coastline: "Coastline",
@@ -220,6 +220,34 @@ const en = {
       "You can ask us at any time to delete a message you sent, or to remove your address from the newsletter. Write to us and we will do it promptly — no explanation required.",
     contactTitle: "Contact",
     contactBody: "Questions about privacy: admin@galmudug.com",
+  },
+  galmudugDay: {
+    navLabel: "14 August",
+    title: "{n} years of Galmudug — 14 August",
+    eyebrow: "Counting down to Galmudug Day",
+    todayEyebrow: "Galmudug Day",
+    todayTitle: "Happy {n}th anniversary, Galmudug",
+    todayBody:
+      "Today Galmudug marks the anniversary of its founding on 14 August 2006 — celebrated in Dhuusamarreeb, across every district, and by the diaspora worldwide.",
+    countdownLabel: "Countdown to Galmudug Day",
+    cta: "Explore",
+    days: "Days",
+    hours: "Hours",
+    minutes: "Min",
+    seconds: "Sec",
+    metaDescription:
+      "Galmudug Day, 14 August: a countdown to the anniversary of Galmudug's founding in 2006, a timeline of the state's history, and the past year in review.",
+    intro:
+      "Galmudug was founded on 14 August 2006, bringing the Galgaduud region and southern Mudug under one administration. Every year since, 14 August has been marked in Dhuusamarreeb, across the districts, and wherever the diaspora has settled. In 2026 it falls for the twentieth time.",
+    timelineTitle: "Twenty years, in short",
+    reviewTitle: "The past year in Galmudug",
+    reviewIntro:
+      "A look back at what was reported over the past year. Each item links to the outlet that reported it — this is a news retrospective, not an official record, and Galmudug.com is independent of the state administration.",
+    songsTitle: "Songs for 14 August",
+    songsIntro:
+      "Statehood day has inspired its own genre of pride songs. These are performances from our music collection.",
+    songsCta: "All Galmudug songs",
+    sourceLabel: "Reported by",
   },
   opinion: {
     title: "Your opinion",

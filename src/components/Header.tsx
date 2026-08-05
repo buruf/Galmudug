@@ -34,6 +34,7 @@ export default function Header({
     { href: `/${locale}/districts`, label: dict.nav.districts },
     // Music is intentionally not in the nav: songs live in the Songs widget
     // alongside Watch on the homepage, which links through to /music.
+    { href: `/${locale}/galmudug-day`, label: dict.galmudugDay.navLabel },
     { href: `/${locale}/about`, label: dict.nav.about },
   ];
 

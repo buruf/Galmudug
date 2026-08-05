@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/districts", priority: 0.8 },
     ...DISTRICTS.map((d) => ({ path: `/districts/${d.slug}`, priority: 0.7 })),
     { path: "/music", priority: 0.7 },
+    { path: "/galmudug-day", priority: 0.8 },
     { path: "/about", priority: 0.5 },
     { path: "/privacy", priority: 0.3 },
   ];
